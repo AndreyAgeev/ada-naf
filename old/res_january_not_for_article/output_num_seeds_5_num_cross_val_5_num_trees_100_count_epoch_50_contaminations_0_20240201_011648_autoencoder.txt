@@ -1,0 +1,29 @@
+AUTOENCODER-1-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.3058425925925926
+avg_auc: 0.7940, std_auc: 0.0506, avg_ap: 0.4665, std_ap: 0.0662, avg_time: 0.1
+credit
+mean test f1: 0.4993615575424415
+avg_auc: 0.9816, std_auc: 0.0026, avg_ap: 0.9415, std_ap: 0.0102, avg_time: 0.1
+eeg_eye
+mean test f1: 0.6920899851478994
+avg_auc: 0.6568, std_auc: 0.0162, avg_ap: 0.7467, std_ap: 0.0078, avg_time: 0.1
+haberman
+mean test f1: 0.23792607443723057
+avg_auc: 0.6064, std_auc: 0.1079, avg_ap: 0.3854, std_ap: 0.0782, avg_time: 0.1
+http
+mean test f1: 0.9726726726726725
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 0.1
+ionosphere
+mean test f1: 0.8502724400818324
+avg_auc: 0.9589, std_auc: 0.0052, avg_ap: 0.9438, std_ap: 0.0114, avg_time: 0.1
+diabetes
+mean test f1: 0.5317162600523975
+avg_auc: 0.6932, std_auc: 0.0354, avg_ap: 0.5571, std_ap: 0.0509, avg_time: 0.1
+seismic_bumps
+mean test f1: 0.16796729530249485
+avg_auc: 0.6835, std_auc: 0.0418, avg_ap: 0.1273, std_ap: 0.0174, avg_time: 0.1
+shuttle
+mean test f1: 0.22666666666666666
+avg_auc: 0.9881, std_auc: 0.0049, avg_ap: 0.4537, std_ap: 0.1316, avg_time: 0.1
+End logger: END

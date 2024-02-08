@@ -1,0 +1,283 @@
+NAF-1-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.31205424773854096
+avg_auc: 0.7400, std_auc: 0.0482, avg_ap: 0.4120, std_ap: 0.0829, avg_time: 3.2
+credit
+mean test f1: 0.6820147554092033
+avg_auc: 0.9840, std_auc: 0.0029, avg_ap: 0.9432, std_ap: 0.0109, avg_time: 89.9
+eeg_eye
+mean test f1: 0.7357623252296723
+avg_auc: 0.7122, std_auc: 0.0264, avg_ap: 0.7547, std_ap: 0.0323, avg_time: 6.9
+haberman
+mean test f1: 0.40601029597522287
+avg_auc: 0.5770, std_auc: 0.0664, avg_ap: 0.3817, std_ap: 0.0641, avg_time: 1.3
+http
+mean test f1: 0.9241427115455058
+avg_auc: 0.9983, std_auc: 0.0049, avg_ap: 0.9832, std_ap: 0.0489, avg_time: 4.1
+ionosphere
+mean test f1: 0.8585052621689736
+avg_auc: 0.9655, std_auc: 0.0136, avg_ap: 0.9569, std_ap: 0.0206, avg_time: 2.0
+mulcross
+mean test f1: 0.9029342588240596
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 110.4
+diabetes
+mean test f1: 0.47641402166669883
+avg_auc: 0.7122, std_auc: 0.0232, avg_ap: 0.5599, std_ap: 0.0361, avg_time: 3.9
+seismic_bumps
+mean test f1: 0.042487485278759556
+avg_auc: 0.6911, std_auc: 0.0187, avg_ap: 0.1160, std_ap: 0.0093, avg_time: 165.3
+shuttle
+mean test f1: 0.2966650284581319
+avg_auc: 0.9897, std_auc: 0.0120, avg_ap: 0.5796, std_ap: 0.2446, avg_time: 46.6
+NAF-3-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.33191188165069635
+avg_auc: 0.7725, std_auc: 0.0390, avg_ap: 0.4134, std_ap: 0.0700, avg_time: 2.4
+credit
+mean test f1: 0.6675243159439773
+avg_auc: 0.9772, std_auc: 0.0043, avg_ap: 0.9215, std_ap: 0.0154, avg_time: 83.7
+eeg_eye
+mean test f1: 0.686302565320582
+avg_auc: 0.5493, std_auc: 0.0579, avg_ap: 0.6272, std_ap: 0.0563, avg_time: 6.0
+haberman
+mean test f1: 0.3784218041724101
+avg_auc: 0.5858, std_auc: 0.0648, avg_ap: 0.4095, std_ap: 0.0492, avg_time: 1.0
+http
+mean test f1: 0.25
+avg_auc: 0.9928, std_auc: 0.0058, avg_ap: 0.9157, std_ap: 0.0586, avg_time: 3.5
+ionosphere
+mean test f1: 0.8900080847192404
+avg_auc: 0.9694, std_auc: 0.0210, avg_ap: 0.9608, std_ap: 0.0280, avg_time: 1.5
+mulcross
+mean test f1: 0.5786172265314619
+avg_auc: 0.9994, std_auc: 0.0007, avg_ap: 0.9924, std_ap: 0.0103, avg_time: 106.5
+diabetes
+mean test f1: 0.518486547242886
+avg_auc: 0.6849, std_auc: 0.0211, avg_ap: 0.5253, std_ap: 0.0258, avg_time: 3.5
+seismic_bumps
+mean test f1: 0.0661461711668883
+avg_auc: 0.6955, std_auc: 0.0298, avg_ap: 0.1259, std_ap: 0.0097, avg_time: 165.2
+shuttle
+mean test f1: 0.2081864801864802
+avg_auc: 0.9896, std_auc: 0.0068, avg_ap: 0.5062, std_ap: 0.2087, avg_time: 47.0
+NAF-MH-3-HEAD-1-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.3383146756693408
+avg_auc: 0.7490, std_auc: 0.0492, avg_ap: 0.4049, std_ap: 0.0763, avg_time: 2.7
+credit
+mean test f1: 0.7110089077803105
+avg_auc: 0.9820, std_auc: 0.0037, avg_ap: 0.9323, std_ap: 0.0081, avg_time: 68.0
+eeg_eye
+mean test f1: 0.7304830585898147
+avg_auc: 0.6788, std_auc: 0.0283, avg_ap: 0.7177, std_ap: 0.0287, avg_time: 5.3
+haberman
+mean test f1: 0.364234584399978
+avg_auc: 0.6090, std_auc: 0.0505, avg_ap: 0.4236, std_ap: 0.0493, avg_time: 1.1
+http
+mean test f1: 0.8272391546162402
+avg_auc: 0.9966, std_auc: 0.0028, avg_ap: 0.9619, std_ap: 0.0312, avg_time: 3.0
+ionosphere
+mean test f1: 0.8589684952728431
+avg_auc: 0.9636, std_auc: 0.0140, avg_ap: 0.9548, std_ap: 0.0214, avg_time: 1.4
+mulcross
+mean test f1: 0.9148126908981596
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 94.0
+diabetes
+mean test f1: 0.3545289389965947
+avg_auc: 0.6743, std_auc: 0.0240, avg_ap: 0.5186, std_ap: 0.0312, avg_time: 3.4
+seismic_bumps
+mean test f1: 0.03354731090020132
+avg_auc: 0.6288, std_auc: 0.0306, avg_ap: 0.0959, std_ap: 0.0104, avg_time: 244.0
+shuttle
+mean test f1: 0.276
+avg_auc: 0.9862, std_auc: 0.0086, avg_ap: 0.4496, std_ap: 0.1436, avg_time: 27.6
+AUTOENCODER-1-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.3443230420840381
+avg_auc: 0.7980, std_auc: 0.0392, avg_ap: 0.4164, std_ap: 0.0674, avg_time: 0.2
+credit
+mean test f1: 0.585609089368134
+avg_auc: 0.9529, std_auc: 0.0067, avg_ap: 0.8648, std_ap: 0.0048, avg_time: 0.4
+eeg_eye
+mean test f1: 0.681107396240976
+avg_auc: 0.5294, std_auc: 0.0205, avg_ap: 0.5800, std_ap: 0.0185, avg_time: 0.3
+haberman
+mean test f1: 0.3773802846771728
+avg_auc: 0.5507, std_auc: 0.0482, avg_ap: 0.3734, std_ap: 0.0459, avg_time: 0.2
+http
+mean test f1: 0.17800000000000002
+avg_auc: 0.9919, std_auc: 0.0060, avg_ap: 0.9183, std_ap: 0.0601, avg_time: 0.2
+ionosphere
+mean test f1: 0.7326713329615824
+avg_auc: 0.8807, std_auc: 0.0217, avg_ap: 0.8195, std_ap: 0.0531, avg_time: 0.2
+mulcross
+mean test f1: 0.47144359022781
+avg_auc: 0.9903, std_auc: 0.0039, avg_ap: 0.8789, std_ap: 0.0442, avg_time: 0.4
+diabetes
+mean test f1: 0.44051216794354325
+avg_auc: 0.5534, std_auc: 0.0299, avg_ap: 0.4225, std_ap: 0.0399, avg_time: 0.2
+seismic_bumps
+mean test f1: 0.036390931665390445
+avg_auc: 0.5826, std_auc: 0.0292, avg_ap: 0.0869, std_ap: 0.0093, avg_time: 0.5
+shuttle
+mean test f1: 0.14073286878240437
+avg_auc: 0.9617, std_auc: 0.0195, avg_ap: 0.3117, std_ap: 0.1308, avg_time: 0.3
+IF
+arrythmia
+mean test f1: 0.40805652525776054
+avg_auc: 0.1835, std_auc: 0.0384, avg_ap: 0.0950, std_ap: 0.0079, avg_time: 0.1
+credit
+mean test f1: 0.8423768339858431
+avg_auc: 0.0307, std_auc: 0.0076, avg_ap: 0.1142, std_ap: 0.0055, avg_time: 0.1
+eeg_eye
+mean test f1: 0.38002461602874965
+avg_auc: 0.4500, std_auc: 0.0233, avg_ap: 0.5171, std_ap: 0.0164, avg_time: 0.1
+haberman
+mean test f1: 0.47347842246107297
+avg_auc: 0.3315, std_auc: 0.0521, avg_ap: 0.2240, std_ap: 0.0486, avg_time: 0.1
+http
+mean test f1: 0.5128130034247765
+avg_auc: 0.0245, std_auc: 0.0104, avg_ap: 0.0871, std_ap: 0.0139, avg_time: 0.1
+ionosphere
+mean test f1: 0.763373391747197
+avg_auc: 0.0804, std_auc: 0.0177, avg_ap: 0.2264, std_ap: 0.0323, avg_time: 0.1
+mulcross
+mean test f1: 0.7258571283618829
+avg_auc: 0.0003, std_auc: 0.0005, avg_ap: 0.0982, std_ap: 0.0055, avg_time: 0.1
+diabetes
+mean test f1: 0.4700365854103846
+avg_auc: 0.2747, std_auc: 0.0187, avg_ap: 0.2482, std_ap: 0.0293, avg_time: 0.1
+seismic_bumps
+mean test f1: 0.17624896533035167
+avg_auc: 0.3235, std_auc: 0.0328, avg_ap: 0.0471, std_ap: 0.0086, avg_time: 0.1
+shuttle
+mean test f1: 0.08549475358206861
+avg_auc: 0.1780, std_auc: 0.0945, avg_ap: 0.0102, std_ap: 0.0041, avg_time: 0.1
+DIF
+arrythmia
+mean test f1: 0.3964120019498976
+avg_auc: 0.8047, std_auc: 0.0361, avg_ap: 0.4239, std_ap: 0.0679, avg_time: 8.3
+credit
+mean test f1: 0.7129611380138712
+avg_auc: 0.9427, std_auc: 0.0057, avg_ap: 0.8491, std_ap: 0.0066, avg_time: 17.0
+eeg_eye
+mean test f1: 0.541914172140648
+avg_auc: 0.5895, std_auc: 0.0253, avg_ap: 0.6940, std_ap: 0.0218, avg_time: 10.4
+haberman
+mean test f1: 0.3820991425744721
+avg_auc: 0.6427, std_auc: 0.0444, avg_ap: 0.4450, std_ap: 0.0467, avg_time: 6.8
+http
+mean test f1: 0.20510390622173333
+avg_auc: 0.9964, std_auc: 0.0071, avg_ap: 0.9647, std_ap: 0.0706, avg_time: 8.7
+ionosphere
+mean test f1: 0.814557074042744
+avg_auc: 0.9309, std_auc: 0.0176, avg_ap: 0.9113, std_ap: 0.0328, avg_time: 6.8
+mulcross
+mean test f1: 0.9044800581655588
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 29.1
+diabetes
+mean test f1: 0.34764957297350463
+avg_auc: 0.6879, std_auc: 0.0152, avg_ap: 0.5231, std_ap: 0.0267, avg_time: 9.2
+seismic_bumps
+mean test f1: 0.1425584013684877
+avg_auc: 0.6963, std_auc: 0.0269, avg_ap: 0.1116, std_ap: 0.0092, avg_time: 23.0
+shuttle
+mean test f1: 0.0729356191787755
+avg_auc: 0.9794, std_auc: 0.0328, avg_ap: 0.5575, std_ap: 0.2967, avg_time: 12.5
+ICL
+arrythmia
+mean test f1: 0.29686072325269874
+avg_auc: 0.7036, std_auc: 0.0507, avg_ap: 0.3641, std_ap: 0.0816, avg_time: 13.2
+credit
+mean test f1: 0.7473156708144034
+avg_auc: 0.9985, std_auc: 0.0008, avg_ap: 0.9942, std_ap: 0.0034, avg_time: 38.9
+eeg_eye
+mean test f1: 0.9014621423389955
+avg_auc: 0.9831, std_auc: 0.0078, avg_ap: 0.9873, std_ap: 0.0068, avg_time: 25.3
+haberman
+mean test f1: 0.30824577935969005
+avg_auc: 0.5475, std_auc: 0.0378, avg_ap: 0.3507, std_ap: 0.0534, avg_time: 12.7
+http
+mean test f1: 0.621365501887794
+avg_auc: 0.9302, std_auc: 0.1499, avg_ap: 0.8376, std_ap: 0.2843, avg_time: 28.8
+ionosphere
+mean test f1: 0.6567275908336002
+avg_auc: 0.9682, std_auc: 0.0118, avg_ap: 0.9499, std_ap: 0.0232, avg_time: 8.1
+mulcross
+mean test f1: 0.5346835629401059
+avg_auc: 0.8471, std_auc: 0.1803, avg_ap: 0.7156, std_ap: 0.2913, avg_time: 78.1
+diabetes
+mean test f1: 0.5508793782200739
+avg_auc: 0.6769, std_auc: 0.0335, avg_ap: 0.5246, std_ap: 0.0552, avg_time: 22.8
+seismic_bumps
+mean test f1: 0.13713620870785015
+avg_auc: 0.5435, std_auc: 0.0612, avg_ap: 0.0907, std_ap: 0.0162, avg_time: 71.0
+shuttle
+mean test f1: 0.1440187516822643
+avg_auc: 0.9865, std_auc: 0.0295, avg_ap: 0.6333, std_ap: 0.2692, avg_time: 47.8
+End logger: END
+DEEPSVD
+arrythmia
+mean test f1: 0.355195800491867
+avg_auc: 0.7518, std_auc: 0.0330, avg_ap: 0.4201, std_ap: 0.0650, avg_time: 0.6
+credit
+mean test f1: 0.6572221644694868
+avg_auc: 0.9988, std_auc: 0.0005, avg_ap: 0.9952, std_ap: 0.0026, avg_time: 2.2
+eeg_eye
+mean test f1: 0.9020043042663578
+avg_auc: 0.9607, std_auc: 0.0118, avg_ap: 0.9739, std_ap: 0.0075, avg_time: 0.9
+haberman
+mean test f1: 0.32244998657146845
+avg_auc: 0.6289, std_auc: 0.0364, avg_ap: 0.4219, std_ap: 0.0308, avg_time: 0.3
+http
+mean test f1: 0.634347479767941
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 0.6
+ionosphere
+mean test f1: 0.7324813351215177
+avg_auc: 0.9699, std_auc: 0.0120, avg_ap: 0.9535, std_ap: 0.0219, avg_time: 0.3
+mulcross
+mean test f1: 0.7657522976705593
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 1.8
+diabetes
+mean test f1: 0.43865526140583916
+avg_auc: 0.6080, std_auc: 0.0414, avg_ap: 0.4653, std_ap: 0.0212, avg_time: 0.6
+seismic_bumps
+mean test f1: 0.19296647248583748
+avg_auc: 0.6898, std_auc: 0.0331, avg_ap: 0.1176, std_ap: 0.0109, avg_time: 3.0
+shuttle
+mean test f1: 0.16248125927163376
+avg_auc: 0.9801, std_auc: 0.0184, avg_ap: 0.4108, std_ap: 0.2150, avg_time: 1.1
+End logger: END
+NAF-MH-3-HEAD-1-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.2337321795269542
+avg_auc: 0.6707, std_auc: 0.0438, avg_ap: 0.3581, std_ap: 0.0764, avg_time: 10.2
+credit
+mean test f1: 0.8778637975772586
+avg_auc: 0.9796, std_auc: 0.0044, avg_ap: 0.9551, std_ap: 0.0132, avg_time: 240.8
+eeg_eye
+mean test f1: 0.7534144123296798
+avg_auc: 0.7490, std_auc: 0.0173, avg_ap: 0.7851, std_ap: 0.0186, avg_time: 19.3
+haberman
+mean test f1: 0.42396590190312033
+avg_auc: 0.6570, std_auc: 0.0471, avg_ap: 0.4881, std_ap: 0.0349, avg_time: 2.6
+http
+mean test f1: 0.9806451612903225
+avg_auc: 0.9988, std_auc: 0.0024, avg_ap: 0.9867, std_ap: 0.0267, avg_time: 8.2
+ionosphere
+mean test f1: 0.7526309698099952
+avg_auc: 0.9207, std_auc: 0.0197, avg_ap: 0.8861, std_ap: 0.0263, avg_time: 3.5
+mulcross
+mean test f1: 0.6554319241355124
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 345.8
+diabetes
+mean test f1: 0.525997166987823
+avg_auc: 0.5756, std_auc: 0.0855, avg_ap: 0.4228, std_ap: 0.0894, avg_time: 12.5
+seismic_bumps
+mean test f1: 0.10672720925349079
+avg_auc: 0.6867, std_auc: 0.0301, avg_ap: 0.1108, std_ap: 0.0150, avg_time: 696.8
+shuttle
+mean test f1: 0.13979701943029615
+avg_auc: 0.7956, std_auc: 0.1998, avg_ap: 0.2827, std_ap: 0.3631, avg_time: 82.2
+End logger: END
+

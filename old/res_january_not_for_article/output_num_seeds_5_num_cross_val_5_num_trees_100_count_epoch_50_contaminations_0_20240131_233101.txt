@@ -1,0 +1,23 @@
+NAF-3-LAYER: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.1920014278622319
+avg_auc: 0.6840, std_auc: 0.0522, avg_ap: 0.3143, std_ap: 0.0642, avg_time: 2.5
+credit
+mean test f1: 0.364432682934631
+avg_auc: 0.8641, std_auc: 0.0341, avg_ap: 0.7182, std_ap: 0.0584, avg_time: 89.8
+eeg_eye
+mean test f1: 0.5754597034588563
+avg_auc: 0.5338, std_auc: 0.0539, avg_ap: 0.5904, std_ap: 0.0546, avg_time: 27.1
+haberman
+mean test f1: 0.12082980334519683
+avg_auc: 0.5743, std_auc: 0.0743, avg_ap: 0.3567, std_ap: 0.0807, avg_time: 1.1
+http
+mean test f1: 0.02
+avg_auc: 0.0124, std_auc: 0.0238, avg_ap: 0.0962, std_ap: 0.0084, avg_time: 3.1
+ionosphere
+mean test f1: 0.8106217731307571
+avg_auc: 0.9239, std_auc: 0.0218, avg_ap: 0.8628, std_ap: 0.0501, avg_time: 1.8
+diabetes
+mean test f1: 0.37523859446477503
+avg_auc: 0.6303, std_auc: 0.0300, avg_ap: 0.4812, std_ap: 0.0365, avg_time: 5.0
+seismic_bumps

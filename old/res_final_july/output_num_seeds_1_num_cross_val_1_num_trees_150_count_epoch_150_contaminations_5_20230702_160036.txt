@@ -1,0 +1,32 @@
+NAF-IF: reqularization lambda = 0.0
+arrythmia
+mean test f1: 0.34545454545454546
+avg_auc: 0.7271, std_auc: 0.0000, avg_ap: 0.3751, std_ap: 0.0000, avg_time: 6.2
+credit
+mean test f1: 0.9296875000000001
+avg_auc: 0.9933, std_auc: 0.0000, avg_ap: 0.9803, std_ap: 0.0000, avg_time: 189.2
+eeg_eye
+mean test f1: 0.7717842323651454
+avg_auc: 0.9110, std_auc: 0.0000, avg_ap: 0.9017, std_ap: 0.0000, avg_time: 13.5
+haberman
+mean test f1: 0.3157894736842105
+avg_auc: 0.6191, std_auc: 0.0000, avg_ap: 0.3830, std_ap: 0.0000, avg_time: 1.9
+http
+mean test f1: 0.9777777777777777
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 8.1
+ionosphere
+mean test f1: 0.7678571428571429
+avg_auc: 0.9227, std_auc: 0.0000, avg_ap: 0.8685, std_ap: 0.0000, avg_time: 2.7
+mulcross
+mean test f1: 0.9444444444444444
+avg_auc: 1.0000, std_auc: 0.0000, avg_ap: 1.0000, std_ap: 0.0000, avg_time: 238.3
+diabetes
+mean test f1: 0.43795620437956206
+avg_auc: 0.7292, std_auc: 0.0000, avg_ap: 0.5838, std_ap: 0.0000, avg_time: 8.0
+seismic_bumps
+mean test f1: 0.17543859649122806
+avg_auc: 0.7218, std_auc: 0.0000, avg_ap: 0.1552, std_ap: 0.0000, avg_time: 490.4
+shuttle
+mean test f1: 0.0
+avg_auc: 0.7746, std_auc: 0.0000, avg_ap: 0.0531, std_ap: 0.0000, avg_time: 81.5
+End logger: END

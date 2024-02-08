@@ -1,0 +1,26 @@
+IF
+arrythmia
+mean test f1: 0.42627496878394233
+avg_auc: 0.8211, std_auc: 0.0432, avg_ap: 0.5064, std_ap: 0.0874, avg_time: 0.1
+credit
+mean test f1: 0.8536000703746734
+avg_auc: 0.9661, std_auc: 0.0041, avg_ap: 0.9257, std_ap: 0.0078, avg_time: 0.1
+eeg_eye
+mean test f1: 0.38655383641992885
+avg_auc: 0.5646, std_auc: 0.0367, avg_ap: 0.6100, std_ap: 0.0295, avg_time: 0.1
+haberman
+mean test f1: 0.4626867723712769
+avg_auc: 0.6585, std_auc: 0.0607, avg_ap: 0.4194, std_ap: 0.0878, avg_time: 0.1
+ionosphere
+mean test f1: 0.7338278133290613
+avg_auc: 0.8989, std_auc: 0.0265, avg_ap: 0.8485, std_ap: 0.0472, avg_time: 0.1
+diabetes
+mean test f1: 0.4721228274350418
+avg_auc: 0.7324, std_auc: 0.0222, avg_ap: 0.5715, std_ap: 0.0399, avg_time: 0.1
+seismic_bumps
+mean test f1: 0.19169721714634602
+avg_auc: 0.6870, std_auc: 0.0287, avg_ap: 0.1370, std_ap: 0.0233, avg_time: 0.1
+shuttle
+mean test f1: 0.0953029373800745
+avg_auc: 0.8166, std_auc: 0.0510, avg_ap: 0.1116, std_ap: 0.0920, avg_time: 0.1
+End logger: END

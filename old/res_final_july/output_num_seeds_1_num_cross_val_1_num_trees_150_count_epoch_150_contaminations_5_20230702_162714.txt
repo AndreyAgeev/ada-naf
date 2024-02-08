@@ -1,0 +1,2 @@
+NAF-IF: reqularization lambda = 0.0
+shuttle

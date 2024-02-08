@@ -1,0 +1,169 @@
+NAF-1-LAYER: reqularization lambda = 0.0
+arrythmia
+dataset_0 - avg_auc: 0.6662, std_auc: 0.0486, avg_ap: 0.2563, std_ap: 0.0481
+dataset_1 - avg_auc: 0.6952, std_auc: 0.0381, avg_ap: 0.2762, std_ap: 0.0442
+dataset_2 - avg_auc: 0.7229, std_auc: 0.0524, avg_ap: 0.3064, std_ap: 0.0673
+dataset_3 - avg_auc: 0.7343, std_auc: 0.0255, avg_ap: 0.3234, std_ap: 0.0423
+credit
+dataset_0 - avg_auc: 0.9669, std_auc: 0.0204, avg_ap: 0.9474, std_ap: 0.0251
+dataset_1 - avg_auc: 0.9658, std_auc: 0.0131, avg_ap: 0.9474, std_ap: 0.0172
+dataset_2 - avg_auc: 0.9753, std_auc: 0.0151, avg_ap: 0.9598, std_ap: 0.0165
+dataset_3 - avg_auc: 0.9737, std_auc: 0.0104, avg_ap: 0.9561, std_ap: 0.0165
+eeg_eye
+dataset_0 - avg_auc: 0.5824, std_auc: 0.0295, avg_ap: 0.6319, std_ap: 0.0360
+dataset_1 - avg_auc: 0.5517, std_auc: 0.0367, avg_ap: 0.6147, std_ap: 0.0282
+dataset_2 - avg_auc: 0.5563, std_auc: 0.0210, avg_ap: 0.6190, std_ap: 0.0228
+dataset_3 - avg_auc: 0.5822, std_auc: 0.0411, avg_ap: 0.6618, std_ap: 0.0366
+haberman
+dataset_0 - avg_auc: 0.5989, std_auc: 0.0715, avg_ap: 0.3801, std_ap: 0.0895
+dataset_1 - avg_auc: 0.6137, std_auc: 0.1000, avg_ap: 0.3847, std_ap: 0.0964
+dataset_2 - avg_auc: 0.5749, std_auc: 0.0949, avg_ap: 0.3576, std_ap: 0.0745
+dataset_3 - avg_auc: 0.5881, std_auc: 0.0817, avg_ap: 0.3623, std_ap: 0.0712
+ionosphere
+dataset_0 - avg_auc: 0.9589, std_auc: 0.0149, avg_ap: 0.9384, std_ap: 0.0281
+dataset_1 - avg_auc: 0.9562, std_auc: 0.0165, avg_ap: 0.9375, std_ap: 0.0304
+dataset_2 - avg_auc: 0.9650, std_auc: 0.0184, avg_ap: 0.9456, std_ap: 0.0347
+dataset_3 - avg_auc: 0.9505, std_auc: 0.0116, avg_ap: 0.9232, std_ap: 0.0250
+diabetes
+dataset_0 - avg_auc: 0.6474, std_auc: 0.0323, avg_ap: 0.4846, std_ap: 0.0389
+dataset_1 - avg_auc: 0.6404, std_auc: 0.0304, avg_ap: 0.4909, std_ap: 0.0430
+dataset_2 - avg_auc: 0.6275, std_auc: 0.0318, avg_ap: 0.4813, std_ap: 0.0398
+dataset_3 - avg_auc: 0.6551, std_auc: 0.0379, avg_ap: 0.5041, std_ap: 0.0319
+seismic_bumps
+dataset_0 - avg_auc: 0.6813, std_auc: 0.0140, avg_ap: 0.1344, std_ap: 0.0268
+dataset_1 - avg_auc: 0.6914, std_auc: 0.0143, avg_ap: 0.1309, std_ap: 0.0160
+dataset_2 - avg_auc: 0.6936, std_auc: 0.0154, avg_ap: 0.1337, std_ap: 0.0155
+dataset_3 - avg_auc: 0.6926, std_auc: 0.0221, avg_ap: 0.1303, std_ap: 0.0097
+shuttle
+dataset_0 - avg_auc: 0.8235, std_auc: 0.1701, avg_ap: 0.3591, std_ap: 0.2011
+dataset_1 - avg_auc: 0.8942, std_auc: 0.0859, avg_ap: 0.3440, std_ap: 0.2593
+dataset_2 - avg_auc: 0.8794, std_auc: 0.1098, avg_ap: 0.2572, std_ap: 0.2182
+dataset_3 - avg_auc: 0.7508, std_auc: 0.0818, avg_ap: 0.2202, std_ap: 0.1006
+annthyroid
+dataset_0 - avg_auc: 0.7029, std_auc: 0.0162, avg_ap: 0.1627, std_ap: 0.0096
+dataset_1 - avg_auc: 0.7433, std_auc: 0.0043, avg_ap: 0.1806, std_ap: 0.0218
+dataset_2 - avg_auc: 0.7638, std_auc: 0.0062, avg_ap: 0.1981, std_ap: 0.0178
+dataset_3 - avg_auc: 0.7845, std_auc: 0.0412, avg_ap: 0.2124, std_ap: 0.0249
+band_additional
+dataset_0 - avg_auc: 0.6781, std_auc: 0.0150, avg_ap: 0.2045, std_ap: 0.0144
+dataset_1 - avg_auc: 0.6595, std_auc: 0.0111, avg_ap: 0.2026, std_ap: 0.0003
+dataset_2 - avg_auc: 0.6540, std_auc: 0.0134, avg_ap: 0.2050, std_ap: 0.0292
+dataset_3 - avg_auc: 0.6857, std_auc: 0.0048, avg_ap: 0.2133, std_ap: 0.0214
+celeba
+dataset_0 - avg_auc: 0.6271, std_auc: 0.1258, avg_ap: 0.1484, std_ap: 0.0511
+dataset_1 - avg_auc: 0.6743, std_auc: 0.0918, avg_ap: 0.2230, std_ap: 0.1062
+dataset_2 - avg_auc: 0.6970, std_auc: 0.0738, avg_ap: 0.2340, std_ap: 0.1047
+dataset_3 - avg_auc: 0.7134, std_auc: 0.0731, avg_ap: 0.2628, std_ap: 0.1189
+NAF-3-LAYER: reqularization lambda = 0.0
+arrythmia
+dataset_0 - avg_auc: 0.6876, std_auc: 0.0493, avg_ap: 0.2931, std_ap: 0.0616
+dataset_1 - avg_auc: 0.7054, std_auc: 0.0320, avg_ap: 0.2944, std_ap: 0.0371
+dataset_2 - avg_auc: 0.7227, std_auc: 0.0285, avg_ap: 0.3059, std_ap: 0.0424
+dataset_3 - avg_auc: 0.7195, std_auc: 0.0178, avg_ap: 0.3109, std_ap: 0.0326
+credit
+dataset_0 - avg_auc: 0.9139, std_auc: 0.0206, avg_ap: 0.7680, std_ap: 0.0331
+dataset_1 - avg_auc: 0.9105, std_auc: 0.0189, avg_ap: 0.7798, std_ap: 0.0319
+dataset_2 - avg_auc: 0.9107, std_auc: 0.0135, avg_ap: 0.7694, std_ap: 0.0234
+dataset_3 - avg_auc: 0.9226, std_auc: 0.0205, avg_ap: 0.8150, std_ap: 0.0309
+eeg_eye
+dataset_0 - avg_auc: 0.5516, std_auc: 0.0406, avg_ap: 0.6058, std_ap: 0.0403
+dataset_1 - avg_auc: 0.5486, std_auc: 0.0406, avg_ap: 0.6016, std_ap: 0.0368
+dataset_2 - avg_auc: 0.5610, std_auc: 0.0394, avg_ap: 0.6040, std_ap: 0.0390
+dataset_3 - avg_auc: 0.5490, std_auc: 0.0257, avg_ap: 0.6034, std_ap: 0.0286
+haberman
+dataset_0 - avg_auc: 0.5953, std_auc: 0.0715, avg_ap: 0.3733, std_ap: 0.0914
+dataset_1 - avg_auc: 0.5872, std_auc: 0.0750, avg_ap: 0.3604, std_ap: 0.0818
+dataset_2 - avg_auc: 0.5574, std_auc: 0.0936, avg_ap: 0.3553, std_ap: 0.0850
+dataset_3 - avg_auc: 0.5602, std_auc: 0.0602, avg_ap: 0.3471, std_ap: 0.0648
+ionosphere
+dataset_0 - avg_auc: 0.9332, std_auc: 0.0150, avg_ap: 0.8968, std_ap: 0.0467
+dataset_1 - avg_auc: 0.9322, std_auc: 0.0160, avg_ap: 0.9016, std_ap: 0.0317
+dataset_2 - avg_auc: 0.9372, std_auc: 0.0120, avg_ap: 0.8871, std_ap: 0.0439
+dataset_3 - avg_auc: 0.9419, std_auc: 0.0205, avg_ap: 0.9120, std_ap: 0.0447
+diabetes
+dataset_0 - avg_auc: 0.6316, std_auc: 0.0278, avg_ap: 0.4691, std_ap: 0.0255
+dataset_1 - avg_auc: 0.6335, std_auc: 0.0368, avg_ap: 0.4781, std_ap: 0.0333
+dataset_2 - avg_auc: 0.6322, std_auc: 0.0236, avg_ap: 0.4787, std_ap: 0.0186
+dataset_3 - avg_auc: 0.6275, std_auc: 0.0306, avg_ap: 0.4681, std_ap: 0.0288
+seismic_bumps
+dataset_0 - avg_auc: 0.6999, std_auc: 0.0127, avg_ap: 0.1409, std_ap: 0.0268
+dataset_1 - avg_auc: 0.6980, std_auc: 0.0185, avg_ap: 0.1383, std_ap: 0.0202
+dataset_2 - avg_auc: 0.6926, std_auc: 0.0190, avg_ap: 0.1306, std_ap: 0.0104
+dataset_3 - avg_auc: 0.6926, std_auc: 0.0250, avg_ap: 0.1301, std_ap: 0.0111
+shuttle
+dataset_0 - avg_auc: 0.8080, std_auc: 0.0762, avg_ap: 0.2663, std_ap: 0.2243
+dataset_1 - avg_auc: 0.8739, std_auc: 0.0900, avg_ap: 0.2625, std_ap: 0.2230
+dataset_2 - avg_auc: 0.7030, std_auc: 0.2126, avg_ap: 0.2195, std_ap: 0.2287
+dataset_3 - avg_auc: 0.7119, std_auc: 0.0990, avg_ap: 0.2259, std_ap: 0.1082
+annthyroid
+dataset_0 - avg_auc: 0.6795, std_auc: 0.0428, avg_ap: 0.1449, std_ap: 0.0072
+dataset_1 - avg_auc: 0.6848, std_auc: 0.0381, avg_ap: 0.1482, std_ap: 0.0055
+dataset_2 - avg_auc: 0.6932, std_auc: 0.0458, avg_ap: 0.1552, std_ap: 0.0086
+dataset_3 - avg_auc: 0.7790, std_auc: 0.0050, avg_ap: 0.2033, std_ap: 0.0164
+band_additional
+dataset_0 - avg_auc: 0.6364, std_auc: 0.0374, avg_ap: 0.1983, std_ap: 0.0597
+dataset_1 - avg_auc: 0.6563, std_auc: 0.0039, avg_ap: 0.2081, std_ap: 0.0049
+dataset_2 - avg_auc: 0.6462, std_auc: 0.0020, avg_ap: 0.1789, std_ap: 0.0019
+dataset_3 - avg_auc: 0.6784, std_auc: 0.0196, avg_ap: 0.2016, std_ap: 0.0147
+celeba
+dataset_0 - avg_auc: 0.5619, std_auc: 0.1308, avg_ap: 0.1200, std_ap: 0.0364
+dataset_1 - avg_auc: 0.6781, std_auc: 0.1002, avg_ap: 0.2247, std_ap: 0.1066
+dataset_2 - avg_auc: 0.6642, std_auc: 0.1077, avg_ap: 0.2104, std_ap: 0.1013
+dataset_3 - avg_auc: 0.6563, std_auc: 0.0891, avg_ap: 0.2125, std_ap: 0.0957
+NAF-MH-3-HEAD-1-LAYER: reqularization lambda = 0.0
+arrythmia
+dataset_0 - avg_auc: 0.6913, std_auc: 0.0479, avg_ap: 0.3277, std_ap: 0.0595
+dataset_1 - avg_auc: 0.6669, std_auc: 0.0562, avg_ap: 0.3093, std_ap: 0.0882
+dataset_2 - avg_auc: 0.7225, std_auc: 0.0498, avg_ap: 0.3643, std_ap: 0.1012
+dataset_3 - avg_auc: 0.7096, std_auc: 0.0447, avg_ap: 0.3674, std_ap: 0.1067
+credit
+dataset_0 - avg_auc: 0.9989, std_auc: 0.0006, avg_ap: 0.9963, std_ap: 0.0018
+dataset_1 - avg_auc: 0.9987, std_auc: 0.0017, avg_ap: 0.9970, std_ap: 0.0023
+dataset_2 - avg_auc: 0.9989, std_auc: 0.0007, avg_ap: 0.9964, std_ap: 0.0023
+dataset_3 - avg_auc: 0.9960, std_auc: 0.0038, avg_ap: 0.9930, std_ap: 0.0043
+eeg_eye
+dataset_0 - avg_auc: 0.3351, std_auc: 0.0357, avg_ap: 0.4994, std_ap: 0.0199
+dataset_1 - avg_auc: 0.3435, std_auc: 0.0295, avg_ap: 0.5090, std_ap: 0.0250
+dataset_2 - avg_auc: 0.3412, std_auc: 0.0228, avg_ap: 0.5128, std_ap: 0.0235
+dataset_3 - avg_auc: 0.3526, std_auc: 0.0463, avg_ap: 0.5240, std_ap: 0.0349
+haberman
+dataset_0 - avg_auc: 0.5306, std_auc: 0.0599, avg_ap: 0.3465, std_ap: 0.0912
+dataset_1 - avg_auc: 0.5052, std_auc: 0.0175, avg_ap: 0.3042, std_ap: 0.0215
+dataset_2 - avg_auc: 0.5165, std_auc: 0.0226, avg_ap: 0.3389, std_ap: 0.0492
+dataset_3 - avg_auc: 0.5237, std_auc: 0.0289, avg_ap: 0.3314, std_ap: 0.0395
+ionosphere
+dataset_0 - avg_auc: 0.9594, std_auc: 0.0127, avg_ap: 0.9483, std_ap: 0.0174
+dataset_1 - avg_auc: 0.9627, std_auc: 0.0096, avg_ap: 0.9522, std_ap: 0.0122
+dataset_2 - avg_auc: 0.9551, std_auc: 0.0111, avg_ap: 0.9386, std_ap: 0.0189
+dataset_3 - avg_auc: 0.9520, std_auc: 0.0211, avg_ap: 0.9246, std_ap: 0.0393
+diabetes
+dataset_0 - avg_auc: 0.6273, std_auc: 0.0155, avg_ap: 0.4856, std_ap: 0.0145
+dataset_1 - avg_auc: 0.6395, std_auc: 0.0284, avg_ap: 0.4945, std_ap: 0.0286
+dataset_2 - avg_auc: 0.6495, std_auc: 0.0257, avg_ap: 0.4981, std_ap: 0.0358
+dataset_3 - avg_auc: 0.6844, std_auc: 0.0141, avg_ap: 0.5328, std_ap: 0.0232
+seismic_bumps
+dataset_0 - avg_auc: 0.7080, std_auc: 0.0176, avg_ap: 0.1467, std_ap: 0.0268
+dataset_1 - avg_auc: 0.7127, std_auc: 0.0155, avg_ap: 0.1418, std_ap: 0.0150
+dataset_2 - avg_auc: 0.7160, std_auc: 0.0225, avg_ap: 0.1405, std_ap: 0.0168
+dataset_3 - avg_auc: 0.7106, std_auc: 0.0242, avg_ap: 0.1391, std_ap: 0.0121
+shuttle
+dataset_0 - avg_auc: 0.9965, std_auc: 0.0026, avg_ap: 0.7111, std_ap: 0.2071
+dataset_1 - avg_auc: 0.9903, std_auc: 0.0097, avg_ap: 0.6126, std_ap: 0.2873
+dataset_2 - avg_auc: 0.9930, std_auc: 0.0041, avg_ap: 0.6130, std_ap: 0.2372
+dataset_3 - avg_auc: 0.9887, std_auc: 0.0034, avg_ap: 0.4980, std_ap: 0.1166
+annthyroid
+dataset_0 - avg_auc: 0.9627, std_auc: 0.0066, avg_ap: 0.7633, std_ap: 0.0049
+dataset_1 - avg_auc: 0.9515, std_auc: 0.0139, avg_ap: 0.7908, std_ap: 0.0400
+dataset_2 - avg_auc: 0.9433, std_auc: 0.0153, avg_ap: 0.7659, std_ap: 0.0212
+dataset_3 - avg_auc: 0.8799, std_auc: 0.0392, avg_ap: 0.4357, std_ap: 0.1679
+band_additional
+dataset_0 - avg_auc: 0.6889, std_auc: 0.0355, avg_ap: 0.2810, std_ap: 0.0203
+dataset_1 - avg_auc: 0.6622, std_auc: 0.0027, avg_ap: 0.3310, std_ap: 0.0302
+dataset_2 - avg_auc: 0.7684, std_auc: 0.0034, avg_ap: 0.3326, std_ap: 0.0108
+dataset_3 - avg_auc: 0.7011, std_auc: 0.0323, avg_ap: 0.2683, std_ap: 0.0379
+celeba
+dataset_0 - avg_auc: 0.7813, std_auc: 0.0369, avg_ap: 0.3011, std_ap: 0.0385
+dataset_1 - avg_auc: 0.8367, std_auc: 0.0153, avg_ap: 0.3616, std_ap: 0.0190
+dataset_2 - avg_auc: 0.8089, std_auc: 0.0118, avg_ap: 0.3040, std_ap: 0.0176
+dataset_3 - avg_auc: 0.7467, std_auc: 0.0087, avg_ap: 0.2730, std_ap: 0.0409
+End logger: END

@@ -1,0 +1,25 @@
+IF
+band_additional
+mean test f1: 0.3386327503974563
+avg_auc: 0.7670, std_auc: 0.0337, avg_ap: 0.3668, std_ap: 0.0134, avg_time: 0.1
+DIF
+band_additional
+mean test f1: 0.3798076923076923
+avg_auc: 0.7422, std_auc: 0.0135, avg_ap: 0.3410, std_ap: 0.0656, avg_time: 1.1
+AUTOENCODER-1-LAYER: reqularization lambda = 0.0
+band_additional
+mean test f1: 0.2521688837478311
+avg_auc: 0.7929, std_auc: 0.0000, avg_ap: 0.3111, std_ap: 0.0640, avg_time: 0.1
+NAF-1-LAYER: reqularization lambda = 0.0
+band_additional
+mean test f1: 0.27061790668348046
+avg_auc: 0.7401, std_auc: 0.0342, avg_ap: 0.2385, std_ap: 0.0714, avg_time: 4.7
+NAF-3-LAYER: reqularization lambda = 0.0
+band_additional
+mean test f1: 0.21910898012186591
+avg_auc: 0.7524, std_auc: 0.0226, avg_ap: 0.2702, std_ap: 0.0228, avg_time: 5.5
+NAF-MH-3-HEAD-1-LAYER: reqularization lambda = 0.0
+band_additional
+mean test f1: 0.36516549104720564
+avg_auc: 0.8242, std_auc: 0.0078, avg_ap: 0.3837, std_ap: 0.0197, avg_time: 18.8
+End logger: END
