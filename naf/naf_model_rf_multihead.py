@@ -139,119 +139,12 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
     def fit(self, x, y):
         self._base_fit(x, y)
 
-    def optimize_weights(self, X, y_orig) -> 'NeuralAttentionForest':
-        assert self.forest is not None, "Need to fit before weights optimization"
-        if self.params.mode == 'end_to_end':
-            self._optimize_weights_end_to_end(X, y_orig)
-        elif self.params.mode == 'two_step':
-            self._optimize_weights_two_step(X, y_orig)
-        else:
-            raise ValueError(f'Wrong mode: {self.params.mode!r}')
-
     def _make_loss(self):
         if callable(self.params.loss):
             return self.params.loss
         elif self.params.loss == 'mse':
             return torch.nn.MSELoss()
         raise ValueError(f'Wrong loss: {self.params.loss!r}')
-
-    def _optimize_weights_end_to_end(self, X, y_orig) -> 'NeuralAttentionForest':
-        assert self.forest is not None, "Need to fit before weights optimization"
-        neighbors_hot = self._get_leaf_data_segments(X, exclude_input=True)
-        X_tensor = torch.tensor(X, dtype=torch.double)
-        background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
-        if len(background_y.shape) == 1:
-            background_y = background_y.unsqueeze(1)
-            y_orig = y_orig[:, np.newaxis]
-        y_true = torch.tensor(y_orig, dtype=torch.double)
-        neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-
-        optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
-        loss_fn = self._make_loss()
-        n_epochs = self.params.n_epochs
-
-        if self.params.lam == 0.0:
-            for epoch in range(n_epochs):
-                predictions = self.nn(
-                    X_tensor,
-                    background_X,
-                    background_y,
-                    neighbors_hot,
-                )
-                optim.zero_grad()
-                loss = loss_fn(predictions, y_true)
-                loss.backward()
-                optim.step()
-        else:  # self.params.lam > 0.0
-            tlw = self.params.target_loss_weight
-            lam = self.params.lam
-            for epoch in range(n_epochs):
-                # second_y, second_xs, first_alphas, second_betas
-                predictions, xs_reconstruction, _alphas, _betas = self.nn(
-                    X_tensor,
-                    background_X,
-                    background_y,
-                    neighbors_hot,
-                    need_attention_weights=True,
-                )
-                optim.zero_grad()
-                loss = tlw * loss_fn(predictions, y_true) + lam * loss_fn(xs_reconstruction, X_tensor)
-                loss.backward()
-                optim.step()
-        return self
-
-    def _optimize_weights_two_step(self, X, y_orig) -> 'NeuralAttentionForest':
-        assert self.forest is not None, "Need to fit before weights optimization"
-        neighbors_hot = self._get_leaf_data_segments(X, exclude_input=True)
-        X_tensor = torch.tensor(X, dtype=torch.double)
-        background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
-        if len(background_y.shape) == 1:
-            background_y = background_y.unsqueeze(1)
-            y_orig = y_orig[:, np.newaxis]
-        y_true = torch.tensor(y_orig, dtype=torch.double)
-        neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-
-        # first step
-        first_nn = self.nn.leaf_network
-        optim = torch.optim.AdamW(first_nn.parameters(), lr=self.params.lr)
-        loss_fn = self._make_loss()
-        n_epochs = self.params.n_epochs
-        n_trees = neighbors_hot.shape[2]
-        y_true_per_tree = y_true[:, None].repeat(1, n_trees, 1)
-        n_out = y_true_per_tree.shape[-1]
-        for epoch in range(n_epochs // 2):
-            _first_leaf_xs, first_leaf_y, _first_alphas = first_nn(
-                X_tensor,
-                background_X,
-                background_y,
-                neighbors_hot,
-            )
-            # first_leaf_y shape: (n_samples, n_trees, n_out)
-            optim.zero_grad()
-            loss = loss_fn(first_leaf_y.view(-1, n_out), y_true_per_tree.view(-1, n_out))
-            loss.backward()
-            optim.step()
-
-        self.nn.tree_network.second_encoder.weight.data[:] = first_nn.first_encoder.weight.data
-        self.nn.tree_network.second_encoder.bias.data[:] = first_nn.first_encoder.bias.data
-        # second step
-        optim = torch.optim.AdamW(self.nn.tree_network.parameters(), lr=self.params.lr)
-        loss_fn = torch.nn.MSELoss()
-        for epoch in range(n_epochs // 2):
-            predictions = self.nn(
-                X_tensor,
-                background_X,
-                background_y,
-                neighbors_hot,
-            )
-            optim.zero_grad()
-            loss = loss_fn(predictions, y_true)
-            loss.backward()
-            optim.step()
-
-        return self
 
     def optimize_weights_unlabeled(self, X) -> 'NeuralAttentionForest':
         assert self.forest is not None, "Need to fit before weights optimization"
@@ -261,21 +154,6 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
             raise ValueError(f'Wrong mode: {self.params.mode!r}')
 
     def _optimize_weights_unlabeled_end_to_end(self, X) -> 'NeuralAttentionForest':
-        # assert self.forest is not None, "Need to fit before weights optimization"
-        # neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
-        # X_tensor = torch.tensor(X, dtype=torch.double)
-        # background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        # background_y = torch.tensor(self.training_y, dtype=torch.double)
-        # # size = self.training_y.shape[0]
-        # # background_y = torch.tensor(self.training_y.toarray(), dtype=torch.double)
-        # # background_y = torch.reshape(background_y, (size, 2))
-        # if len(background_y.shape) == 1:
-        #     background_y = background_y.unsqueeze(1)
-        # neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-        #
-        # optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
-        # loss_fn = self._make_loss()
-        # n_epochs = self.params.n_epochs
         assert self.forest is not None, "Need to fit before weights optimization"
         from sklearn.model_selection import train_test_split
         X_train, X_val = train_test_split(X, test_size=0.2,
@@ -293,17 +171,7 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
             background_y = background_y.unsqueeze(1)
         neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
         neighbors_hot_val = torch.tensor(neighbors_hot_val, dtype=torch.bool)
-        # from sklearn.model_selection import train_test_split
-        #
-        # neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
-        #
-        # X_tensor = torch.tensor(X, dtype=torch.double)
-        # background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        # background_y = torch.tensor(self.training_y, dtype=torch.double)
-        #
-        # if len(background_y.shape) == 1:
-        #     background_y = background_y.unsqueeze(1)
-        # neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
+
         optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
         loss_fn = self._make_loss()
         n_epochs = self.params.n_epochs
@@ -372,9 +240,6 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
         X_tensor = torch.tensor(X, dtype=torch.double)
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
         background_y = torch.tensor(self.training_y, dtype=torch.double)
-        # size = self.training_y.shape[0]
-        # background_y = torch.tensor(self.training_y.toarray(), dtype=torch.double)
-        # background_y = torch.reshape(background_y, (size, 2))
         if len(background_y.shape) == 1:
             background_y = background_y.unsqueeze(1)
         neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
@@ -395,8 +260,6 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
             else:
                 predictions = output.detach().cpu().numpy()
 
-        if self.params.kind.need_add_init():
-            predictions += self.forest.init_.predict(X)[:, np.newaxis]
         if not need_attention_weights:
             return predictions
         else:

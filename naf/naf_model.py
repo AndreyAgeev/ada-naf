@@ -72,36 +72,6 @@ class NeuralAttentionForest(AttentionForest):
     def _make_nn(self, n_features):
         self._n_features = n_features
         self.nn = NAFNetwork(n_features, self.params.hidden_size, self.params.n_layers, self.params.random_state)
-        # if self.params.use_weights_random_init:
-        #     MAX_INT = np.iinfo(np.int32).max
-        #     rng = check_random_state(self.params.random_state)
-        #     seed = rng.randint(MAX_INT)
-        #     torch.manual_seed(seed)
-        #
-        #     def _init_weights(m):
-        #         if isinstance(m, torch.nn.Linear):
-        #             # torch.nn.init.uniform_(m.weight)
-        #             if self.params.weights_init_type == 'xavier':
-        #                 torch.nn.init.xavier_normal_(m.weight)
-        #                 m.bias.data.fill_(0.0)
-        #             elif self.params.weights_init_type == 'uniform':
-        #                 torch.nn.init.uniform_(m.weight)
-        #                 m.bias.data.fill_(0.0)
-        #             elif self.params.weights_init_type == 'general_rule_uniform':
-        #                 n = m.in_features
-        #                 y = 1.0 / np.sqrt(n)
-        #                 m.weight.data.uniform_(-y, y)
-        #                 m.bias.data.fill_(0.0)
-        #             elif self.params.weights_init_type == 'general_rule_normal':
-        #                 y = m.in_features
-        #                 m.weight.data.normal_(0.0, 1.0 / np.sqrt(y))
-        #                 m.bias.data.fill_(0.0)
-        #             elif self.params.weights_init_type == 'default':
-        #                 m.reset_parameters()
-        #             else:
-        #                 raise ValueError(f'Wrong {self.params.weights_init_type=}')
-        #
-        #     self.nn.apply(_init_weights)
 
     def _base_fit(self, X, y) -> 'NeuralAttentionForest':
         forest_cls = FORESTS[ForestType(self.params.kind, self.params.task)]
@@ -152,104 +122,6 @@ class NeuralAttentionForest(AttentionForest):
             return torch.nn.MSELoss()
         raise ValueError(f'Wrong loss: {self.params.loss!r}')
 
-    def _optimize_weights_end_to_end(self, X, y_orig) -> 'NeuralAttentionForest':
-        assert self.forest is not None, "Need to fit before weights optimization"
-        neighbors_hot = self._get_leaf_data_segments(X, exclude_input=True)
-        X_tensor = torch.tensor(X, dtype=torch.double)
-        background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
-        if len(background_y.shape) == 1:
-            background_y = background_y.unsqueeze(1)
-            y_orig = y_orig[:, np.newaxis]
-        y_true = torch.tensor(y_orig, dtype=torch.double)
-        neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-
-        optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
-        loss_fn = self._make_loss()
-        n_epochs = self.params.n_epochs
-
-        if self.params.lam == 0.0:
-            for epoch in range(n_epochs):
-                predictions = self.nn(
-                    X_tensor,
-                    background_X,
-                    background_y,
-                    neighbors_hot,
-                )
-                optim.zero_grad()
-                loss = loss_fn(predictions, y_true)
-                loss.backward()
-                optim.step()
-        else:  # self.params.lam > 0.0
-            tlw = self.params.target_loss_weight
-            lam = self.params.lam
-            for epoch in range(n_epochs):
-                # second_y, second_xs, first_alphas, second_betas
-                predictions, xs_reconstruction, _alphas, _betas = self.nn(
-                    X_tensor,
-                    background_X,
-                    background_y,
-                    neighbors_hot,
-                    need_attention_weights=True,
-                )
-                optim.zero_grad()
-                loss = tlw * loss_fn(predictions, y_true) + lam * loss_fn(xs_reconstruction, X_tensor)
-                loss.backward()
-                optim.step()
-        return self
-
-    def _optimize_weights_two_step(self, X, y_orig) -> 'NeuralAttentionForest':
-        assert self.forest is not None, "Need to fit before weights optimization"
-        neighbors_hot = self._get_leaf_data_segments(X, exclude_input=True)
-        X_tensor = torch.tensor(X, dtype=torch.double)
-        background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
-        if len(background_y.shape) == 1:
-            background_y = background_y.unsqueeze(1)
-            y_orig = y_orig[:, np.newaxis]
-        y_true = torch.tensor(y_orig, dtype=torch.double)
-        neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-
-        # first step
-        first_nn = self.nn.leaf_network
-        optim = torch.optim.AdamW(first_nn.parameters(), lr=self.params.lr)
-        loss_fn = self._make_loss()
-        n_epochs = self.params.n_epochs
-        n_trees = neighbors_hot.shape[2]
-        y_true_per_tree = y_true[:, None].repeat(1, n_trees, 1)
-        n_out = y_true_per_tree.shape[-1]
-        for epoch in range(n_epochs // 2):
-            _first_leaf_xs, first_leaf_y, _first_alphas = first_nn(
-                X_tensor,
-                background_X,
-                background_y,
-                neighbors_hot,
-            )
-            # first_leaf_y shape: (n_samples, n_trees, n_out)
-            optim.zero_grad()
-            loss = loss_fn(first_leaf_y.view(-1, n_out), y_true_per_tree.view(-1, n_out))
-            loss.backward()
-            optim.step()
-
-        self.nn.tree_network.second_encoder.weight.data[:] = first_nn.first_encoder.weight.data
-        self.nn.tree_network.second_encoder.bias.data[:] = first_nn.first_encoder.bias.data
-        # second step
-        optim = torch.optim.AdamW(self.nn.tree_network.parameters(), lr=self.params.lr)
-        loss_fn = torch.nn.MSELoss()
-        for epoch in range(n_epochs // 2):
-            predictions = self.nn(
-                X_tensor,
-                background_X,
-                background_y,
-                neighbors_hot,
-            )
-            optim.zero_grad()
-            loss = loss_fn(predictions, y_true)
-            loss.backward()
-            optim.step()
-
-        return self
-
     def optimize_weights_unlabeled(self, X) -> 'NeuralAttentionForest':
         assert self.forest is not None, "Need to fit before weights optimization"
         if self.params.mode == 'end_to_end':
@@ -257,77 +129,7 @@ class NeuralAttentionForest(AttentionForest):
         else:
             raise ValueError(f'Wrong mode: {self.params.mode!r}')
 
-    # def _optimize_weights_unlabeled_end_to_end(self, X) -> 'NeuralAttentionForest':
-    #     assert self.forest is not None, "Need to fit before weights optimization"
-    #     from sklearn.model_selection import train_test_split
-    #     X_train, X_val = train_test_split(X, test_size=0.2,
-    #                                       random_state=42)
-    #
-    #     neighbors_hot = self._get_leaf_data_segments(X_train, exclude_input=False)
-    #     neighbors_hot_val = self._get_leaf_data_segments(X_val, exclude_input=False)
-    #
-    #     X_tensor = torch.tensor(X_train, dtype=torch.double)
-    #     X_tensor_val = torch.tensor(X_val, dtype=torch.double)
-    #
-    #     background_X = torch.tensor(self.training_xs, dtype=torch.double)
-    #     background_y = torch.tensor(self.training_y, dtype=torch.double)
-    #     # size = self.training_y.shape[0]
-    #     # background_y = torch.tensor(self.training_y.toarray(), dtype=torch.double)
-    #     # background_y = torch.reshape(background_y, (size, 2))
-    #     if len(background_y.shape) == 1:
-    #         background_y = background_y.unsqueeze(1)
-    #     neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
-    #     neighbors_hot_val = torch.tensor(neighbors_hot_val, dtype=torch.bool)
-    #
-    #     optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
-    #     loss_fn = self._make_loss()
-    #     n_epochs = self.params.n_epochs
-    #     best_val_loss = float('inf')
-    #
-    #     for epoch in range(n_epochs):
-    #         # second_y, second_xs, first_alphas, second_betas
-    #         predictions, xs_reconstruction, _alphas, _betas = self.nn(
-    #             X_tensor,
-    #             background_X,
-    #             background_y,
-    #             neighbors_hot,
-    #             need_attention_weights=True,
-    #         )
-    #         optim.zero_grad()
-    #         loss = loss_fn(xs_reconstruction, X_tensor)
-    #         # print("train loss = ", loss)
-    #         loss.backward()
-    #         optim.step()
-    #         with torch.no_grad():
-    #             predictions, xs_reconstruction, _alphas, _betas = self.nn(
-    #                 X_tensor_val,
-    #                 background_X,
-    #                 background_y,
-    #                 neighbors_hot_val,
-    #                 need_attention_weights=True,
-    #             )
-    #             # optim.zero_grad()
-    #             val_loss = loss_fn(xs_reconstruction, X_tensor_val)
-    #             if val_loss < best_val_loss:
-    #                 # print("best val loss ", val_loss, " - epoch = ", epoch)
-    #                 best_val_loss = val_loss
-    #                 best_state = copy.deepcopy(self.nn.state_dict())
-    #     self.nn = NAFNetwork(self._n_features, self.params.hidden_size, self.params.n_layers)
-    #     self.nn.load_state_dict(best_state)
-    #     return self
-
     def _optimize_weights_unlabeled_end_to_end(self, X) -> 'NeuralAttentionForest':
-        def batch_generator(data, background_X, background_y, neighbors_hot, batch_size):
-            num_samples = len(data)
-            indices = np.arange(num_samples)
-            np.random.shuffle(indices)
-
-            for start in range(0, num_samples, batch_size):
-                end = min(start + batch_size, num_samples)
-                batch_indices = indices[start:end]
-                yield data[batch_indices], neighbors_hot[
-                    batch_indices]
-
         assert self.forest is not None, "Need to fit before weights optimization"
         from sklearn.model_selection import train_test_split
         X_train, X_val = train_test_split(X, test_size=0.2, random_state=42)
@@ -345,29 +147,13 @@ class NeuralAttentionForest(AttentionForest):
             background_y = background_y.unsqueeze(1)
         neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
         neighbors_hot_val = torch.tensor(neighbors_hot_val, dtype=torch.bool)
-        # assert self.forest is not None, "Need to fit before weights optimization"
-        # from sklearn.model_selection import train_test_split
-        #
-        # neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
-        #
-        # X_tensor = torch.tensor(X, dtype=torch.double)
-        #
-        # background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        # background_y = torch.tensor(self.training_y, dtype=torch.double)
-        #
-        # if len(background_y.shape) == 1:
-        #     background_y = background_y.unsqueeze(1)
-        # neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)
 
         optim = torch.optim.AdamW(self.nn.parameters(), lr=self.params.lr)
         loss_fn = self._make_loss()
         n_epochs = self.params.n_epochs
-        batch_size = 256
         best_val_loss = float('inf')
 
         for epoch in range(n_epochs):
-            print("epoch = ", epoch)
-
             predictions, xs_reconstruction, _alphas, _betas = self.nn(
                 X_tensor,
                 background_X,
@@ -379,6 +165,7 @@ class NeuralAttentionForest(AttentionForest):
             loss = loss_fn(xs_reconstruction, X_tensor)
             loss.backward()
             optim.step()
+            # print(f"epoch = {epoch} - train {loss}")
 
             with torch.no_grad():
                 predictions, xs_reconstruction, _alphas, _betas = self.nn(
@@ -390,6 +177,7 @@ class NeuralAttentionForest(AttentionForest):
                 )
                 val_loss = loss_fn(xs_reconstruction, X_tensor_val)
                 if val_loss < best_val_loss:
+                    # print(f"epoch = {epoch} - val {val_loss}")
                     best_val_loss = val_loss
                     best_state = copy.deepcopy(self.nn.state_dict())
 
@@ -447,8 +235,6 @@ class NeuralAttentionForest(AttentionForest):
             else:
                 predictions = output.detach().cpu().numpy()
 
-        if self.params.kind.need_add_init():
-            predictions += self.forest.init_.predict(X)[:, np.newaxis]
         if not need_attention_weights:
             return predictions
         else:

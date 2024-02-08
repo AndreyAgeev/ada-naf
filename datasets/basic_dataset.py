@@ -58,56 +58,22 @@ class AbstractDataset(ABC):
         Xa = self.X_train[self.y_train == 1]
         return Xn, Xa
 
-    # def create_dataset_versions(self, Xn, Xa):
-    #     X1 = np.concatenate((0.7 * Xn, 0.3 * Xa))
-    #     X2 = np.concatenate((0.5 * Xn, 0.5 * Xa))
-    #     X3 = np.concatenate((0.3 * Xn, 0.7 * Xa))
-    #     return X1, X2, X3
-
-    # def create_dataset_versions(self, Xn, Xa):
-    #     # Create label arrays
-    #     labels_n = np.zeros(len(Xn))
-    #     labels_a = np.ones(len(Xa))
-    #
-    #     # Calculate the number of samples from each set for the mix
-    #     num_n_for_X1 = int(0.7 * len(Xn))
-    #     num_a_for_X1 = int(0.3 * len(Xa))
-    #     num_n_for_X2 = int(0.5 * len(Xn))
-    #     num_a_for_X2 = int(0.5 * len(Xa))
-    #     num_n_for_X3 = int(0.3 * len(Xn))
-    #     num_a_for_X3 = int(0.7 * len(Xa))
-    #
-    #     # Create datasets
-    #     X1 = np.concatenate((Xn[:num_n_for_X1], Xa[:num_a_for_X1]))
-    #     X2 = np.concatenate((Xn[:num_n_for_X2], Xa[:num_a_for_X2]))
-    #     X3 = np.concatenate((Xn[:num_n_for_X3], Xa[:num_a_for_X3]))
-    #
-    #     # Create corresponding label arrays
-    #     Y1 = np.concatenate((labels_n[:num_n_for_X1], labels_a[:num_a_for_X1]))
-    #     Y2 = np.concatenate((labels_n[:num_n_for_X2], labels_a[:num_a_for_X2]))
-    #     Y3 = np.concatenate((labels_n[:num_n_for_X3], labels_a[:num_a_for_X3]))
-    #
-    #     return (X1, Y1), (X2, Y2), (X3, Y3)
-
-    import numpy as np
-
     def create_dataset_versions(self, Xn, Xa, injection=False):
         # Create label arrays
         labels_n = np.zeros(len(Xn))
         labels_a = np.ones(len(Xa))
 
         num_anomalous = len(Xa)
-        total = 2 * num_anomalous
+        total = num_anomalous
         if injection is False:
             proportions = [1.0, 0.7, 0.5, 0.3]
         else:
-            proportions = [0.0, 0.05, 0.1]
+            proportions = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
         datasets = []
         np.random.seed(self.seed)
 
         for proportion_a in proportions:
-            # Вычисляем количество нормальных и аномальных сэмплов в соответствии с пропорцией
             num_anomalous_current = int(proportion_a * num_anomalous)
             num_normal = total - num_anomalous_current
 

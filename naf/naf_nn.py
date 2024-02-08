@@ -10,7 +10,6 @@ NEG_INF = -1.e20
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 def make_encoder(n_features: int, hidden_size: int, n_layers: int):
@@ -161,7 +160,7 @@ class NAFMultiheadNetwork(Module):
 
         self.weights_init_type = 'general_rule_normal'
         self.tree_networks[2].apply(_init_weights)
-        self.leaf_network[2].apply(_init_weights) # тут был индекс 1 1
+        self.leaf_network[2].apply(_init_weights)
 
     def forward(self, X, background_X, background_y, neighbors_hot, need_attention_weights=True):
         xs = []
@@ -183,17 +182,6 @@ class Autoencoder(nn.Module):
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
-        # Encoder layers
-        # self.encoder = nn.Sequential(
-        #     nn.Linear(n_features, hidden_size),
-        #     nn.ReLU(),
-        # ).to(dtype=torch.double)
-        #
-        # # Decoder layers
-        # self.decoder = nn.Sequential(
-        #     nn.Linear(hidden_size, n_features),
-        #     # nn.Sigmoid()
-        # ).to(dtype=torch.double)
         self.encoder = nn.Sequential(
             nn.Linear(n_features, 2),
             nn.ReLU(),
