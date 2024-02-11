@@ -34,15 +34,15 @@ class AnomalyDetection:
     def __init__(self, num_seeds: int = 1, num_cross_val: int = 1, num_trees: int = 150, count_epoch: int = 300,
                  contaminations: int = 5):
         self._datasets = [
-            DatasetArrythmia(),  # 8 - 17 features
-            DatasetCredit(),  # 12 - 30 features
+            # DatasetArrythmia(),  # 8 - 17 features
+            # DatasetCredit(),  # 12 - 30 features
             DatasetHaberman(),  # 2  - 3 features
             DatasetIonosphere(),  # 6 - 33 features
-            DatasetPimaDiabetes(),  # 6 - 8 features
-            DatasetSeismicBumps(),
-            DatasetShuttle(),
+            # DatasetPimaDiabetes(),  # 6 - 8 features
+            # DatasetSeismicBumps(),
+            # DatasetShuttle(),
             DatasetAnnhyroid(),
-            DatasetBankAdditional(),
+            # DatasetBankAdditional(),
             DatasetCeleba()
         ]
         self._hidden_size = [8, 12, 6, 2, 2, 6, 3, 6, 6, 6]
@@ -142,16 +142,16 @@ class AnomalyDetection:
                     forest_param = dict(
                         n_estimators=self._n_trees,
                         min_samples_leaf=1
+                        # max_depth=1,
                     )
                     if model_type == "NAF-3-LAYER":
                         num_layers = 3
                     else:
                         num_layers = 1
                     hidden_size = dataset.X_train.shape[1] // 2
-                    hidden_size = 8
                     params = NAFParams(
                         kind=self._tree_type,
-                        task=TaskType.REGRESSION,
+                        task=TaskType.CLASSIFICATION,
                         mode='end_to_end',
                         n_epochs=self._count_epoch,
                         lr=0.01,
@@ -205,69 +205,6 @@ class AnomalyDetection:
         for dataset, hidden_size in zip(self._datasets, self._hidden_size):
             self._file_logger.info(f"{dataset.get_name()}")
             print(f"{dataset.get_name()}")
-            auc_lst, ap_lst = [[], [], [], []], [[], [], [], []]
-            for k in range(0, self._num_cross_val):
-                for seed in self._seed_variants:
-                    print(f"running: {k} and {seed}")
-                    dataset.load()
-                    forest_param = dict(
-                        n_estimators=self._n_trees,
-                        min_samples_leaf=1
-                    )
-                    if model_type == "NAF-3-LAYER":
-                        num_layers = 3
-                    else:
-                        num_layers = 1
-                    hidden_size = dataset.X_train.shape[1] // 2
-                    params = NAFParams(
-                        kind=self._tree_type,
-                        task=TaskType.REGRESSION,
-                        mode='end_to_end',
-                        n_epochs=self._count_epoch,
-                        lr=0.01,
-                        lam=1.0,
-                        target_loss_weight=1.0,
-                        hidden_size=hidden_size,
-                        n_layers=num_layers,
-                        forest=forest_param,
-                        random_state=seed,
-                        regularization_lambda=regularization_lambda
-                    )
-                    model = model_cls(params)
-                    dataset.cross_validation_split(k)
-                    Xn, Xa = dataset.split_normal_anomalous_train()
-                    datasets = dataset.create_dataset_versions(Xn, Xa)
-                    for idx, subset_dataset in enumerate(datasets):
-                        X, Y = subset_dataset
-                        model.fit(X, Y)
-                        model.optimize_weights_unlabeled(Xn)
-
-                        dataset_test = dataset.X_test
-
-                        y_proba, x_recons, alphas, betas = model.predict(dataset_test,
-                                                                         need_attention_weights=True)
-                        mse_values = np.mean(np.power(dataset_test - x_recons, 2), axis=1)
-                        scaler = MinMaxScaler(feature_range=(0, 1))
-                        scores = scaler.fit_transform(np.array(mse_values).reshape(-1, 1))
-
-                        auc, ap = evaluate(dataset.y_test, scores)
-                        print(f"auc = {auc}, ap = {ap}")
-                        auc_lst[idx].append(auc)
-                        ap_lst[idx].append(ap)
-            for idx, subset_dataset in enumerate(datasets):
-                avg_auc, avg_ap = np.average(auc_lst[idx]), np.average(ap_lst[idx])
-                std_auc, std_ap = np.std(auc_lst[idx]), np.std(ap_lst[idx])
-                txt = f'dataset_{idx} - avg_auc: {avg_auc:.4f}, std_auc: {std_auc:.4f}, ' \
-                      f'avg_ap: {avg_ap:.4f}, std_ap: {std_ap:.4f}'
-                self._file_logger.info(txt)
-
-    def start_model_naf_injection(self, model_type: str, regularization_lambda: float = 0.0):
-        self._file_logger.info(model_type + ": reqularization lambda = " + str(regularization_lambda))
-        model_cls = self._dict_models_naf[model_type]
-
-        for dataset, hidden_size in zip(self._datasets, self._hidden_size):
-            self._file_logger.info(f"{dataset.get_name()}")
-            print(f"{dataset.get_name()}")
             auc_lst, ap_lst = [[], [], [], [], [], [], [], [], [], [], []], [[], [], [], [], [], [], [], [], [], [], []]
             for k in range(0, self._num_cross_val):
                 for seed in self._seed_variants:
@@ -284,7 +221,7 @@ class AnomalyDetection:
                     hidden_size = dataset.X_train.shape[1] // 2
                     params = NAFParams(
                         kind=self._tree_type,
-                        task=TaskType.REGRESSION,
+                        task=TaskType.CLASSIFICATION,
                         mode='end_to_end',
                         n_epochs=self._count_epoch,
                         lr=0.01,
@@ -296,14 +233,83 @@ class AnomalyDetection:
                         random_state=seed,
                         regularization_lambda=regularization_lambda
                     )
-                    model = model_cls(params)
+                    dataset.cross_validation_split(k)
+                    Xn, Xa = dataset.split_normal_anomalous_train()
+                    datasets = dataset.create_dataset_versions(Xn, Xa)
+                    for idx, subset_dataset in enumerate(datasets):
+                        model = model_cls(params)
+                        X, Y = subset_dataset
+                        print(f"Normal data = {len(X[Y==0])} vs Anomaly Data = {len(X[Y==1])}")
+                        model.fit(X, Y)
+                        model.optimize_weights_unlabeled(Xn)
+
+                        dataset_test = dataset.X_test
+
+                        y_proba, x_recons, alphas, betas = model.predict(dataset_test,
+                                                                         need_attention_weights=True)
+                        mse_values = np.mean(np.power(dataset_test - x_recons, 2), axis=1)
+                        scaler = MinMaxScaler(feature_range=(0, 1))
+                        scores = scaler.fit_transform(np.array(mse_values).reshape(-1, 1))
+                        # scores = model.forest.predict_proba(dataset_test)[:, 0]
+                        auc, ap = evaluate(dataset.y_test, scores)
+                        print(f"auc = {auc}, ap = {ap}")
+                        auc_lst[idx].append(auc)
+                        ap_lst[idx].append(ap)
+            for idx, subset_dataset in enumerate(datasets):
+                avg_auc, avg_ap = np.average(auc_lst[idx]), np.average(ap_lst[idx])
+                std_auc, std_ap = np.std(auc_lst[idx]), np.std(ap_lst[idx])
+                txt = f'dataset_{idx} - avg_auc: {avg_auc:.4f}, std_auc: {std_auc:.4f}, ' \
+                      f'avg_ap: {avg_ap:.4f}, std_ap: {std_ap:.4f}'
+                self._file_logger.info(txt)
+
+    def start_model_naf_injection(self, model_type: str, regularization_lambda: float = 0.0):
+        print(model_type)
+        self._file_logger.info(model_type + ": reqularization lambda = " + str(regularization_lambda))
+        model_cls = self._dict_models_naf[model_type]
+
+        for dataset, hidden_size in zip(self._datasets, self._hidden_size):
+            self._file_logger.info(f"{dataset.get_name()}")
+            print(f"{dataset.get_name()}")
+            auc_lst, ap_lst = [[], [], [], [], []], [[], [], [], [], []]
+            for k in range(0, self._num_cross_val):
+                for seed in self._seed_variants:
+                    # print(f"running: {k} and {seed}")
+                    dataset.load()
+                    forest_param = dict(
+                        n_estimators=self._n_trees,
+                        min_samples_leaf=1,
+                        max_depth=1,
+                    )
+                    if model_type == "NAF-3-LAYER":
+                        num_layers = 3
+                    else:
+                        num_layers = 1
+                    hidden_size = dataset.X_train.shape[1] // 2
+                    params = NAFParams(
+                        kind=self._tree_type,
+                        task=TaskType.CLASSIFICATION,
+                        mode='end_to_end',
+                        n_epochs=self._count_epoch,
+                        lr=0.01,
+                        lam=1.0,
+                        target_loss_weight=1.0,
+                        hidden_size=hidden_size,
+                        n_layers=num_layers,
+                        forest=forest_param,
+                        random_state=seed,
+                        regularization_lambda=regularization_lambda
+                    )
                     dataset.cross_validation_split(k)
                     Xn, Xa = dataset.split_normal_anomalous_train()
                     datasets = dataset.create_dataset_versions(Xn, Xa, injection=True)
-                    # X_orig, Y_orig = dataset.create_dataset_versions(Xn, Xa, injection=False)[0]
+                    X_orig, Y_orig = dataset.create_dataset_versions(Xn, Xa, injection=True)[4]
                     for idx, subset_dataset in enumerate(datasets):
                         X, Y = subset_dataset
-                        model.fit(X, Y)
+                        model = model_cls(params)
+                        # print(f"Normal data = {len(X[Y==0])} vs Anomaly Data = {len(X[Y==1])}")
+                        # print(f"Normal data X_orig = {len(X_orig[Y_orig==0])} vs Anomaly Data = {len(X_orig[Y_orig==1])}")
+
+                        model.fit(X_orig, Y_orig)
                         model.optimize_weights_unlabeled(X)
 
                         dataset_test = dataset.X_test
@@ -315,7 +321,7 @@ class AnomalyDetection:
                         scores = scaler.fit_transform(np.array(mse_values).reshape(-1, 1))
 
                         auc, ap = evaluate(dataset.y_test, scores)
-                        print(f"auc = {auc}, ap = {ap}")
+                        # print(f"auc = {auc}, ap = {ap}")
                         auc_lst[idx].append(auc)
                         ap_lst[idx].append(ap)
             for idx, subset_dataset in enumerate(datasets):

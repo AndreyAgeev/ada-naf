@@ -30,10 +30,49 @@ def parse_file(file_name):
             data[current_model][dataset_name] = {'avg_auc': [], 'std_auc': []}
     return data
 
+#
+# def plot_and_save_data(data, filename='combined_graphs.png'):
+#     proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
+#     # proportions = [0.0, 0.05, 0.1]
+#
+#     datasets = set()
+#     for model_data in data.values():
+#         datasets.update(model_data.keys())
+#
+#     n_graphs = len(datasets)
+#     n_rows = (n_graphs + 1) // 2
+#     is_odd = n_graphs % 2 != 0
+#
+#     fig = plt.figure(figsize=(16, 6 * n_rows))
+#     gs = GridSpec(n_rows, 2, figure=fig)
+#
+#     for i, dataset in enumerate(sorted(datasets)):
+#         if is_odd and i == n_graphs - 1:
+#             ax = fig.add_subplot(gs[i // 2, :])
+#         else:
+#             row, col = divmod(i, 2)
+#             ax = fig.add_subplot(gs[row, col])
+#
+#         for model, model_data in data.items():
+#             if dataset in model_data:
+#                 avg_aucs, std_aucs = model_data[dataset]["avg_auc"], model_data[dataset]["std_auc"]
+#                 ax.errorbar(proportions, avg_aucs, yerr=std_aucs, fmt='-o', capsize=5, label=model)
+#
+#         ax.set_xlabel('Percent of anomalies')
+#         ax.set_ylabel('Average AUC')
+#         ax.set_title(f'Average AUC for {dataset.capitalize()} dataset')
+#         ax.set_xticks(proportions)
+#         ax.set_xticklabels([0.0, 12.5, 25.0, 37.5, 50.0])
+#         ax.set_ylim([-0.1, 1.1])
+#         ax.legend()
+#
+#     plt.tight_layout()
+#     plt.savefig(filename)
+#     plt.show()
+
 
 def plot_and_save_data(data, filename='combined_graphs.png'):
-    proportions = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    # proportions = [0.0, 0.05, 0.1]
+    proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
 
     datasets = set()
     for model_data in data.values():
@@ -58,19 +97,43 @@ def plot_and_save_data(data, filename='combined_graphs.png'):
                 avg_aucs, std_aucs = model_data[dataset]["avg_auc"], model_data[dataset]["std_auc"]
                 ax.errorbar(proportions, avg_aucs, yerr=std_aucs, fmt='-o', capsize=5, label=model)
 
-        ax.set_xlabel('Proportions')
+        ax.set_xlabel('Percent of anomalies in ADA-NAF training data')
         ax.set_ylabel('Average AUC')
-        ax.set_title(f'Average AUC for {dataset.capitalize()} dataset')
+        ax.set_title(f'{dataset.capitalize()} dataset')
         ax.set_xticks(proportions)
+        ax.set_xticklabels([0.0, 12.5, 25.0, 37.5, 50.0])
         # ax.set_ylim([-0.1, 1.1])
         ax.legend()
 
+    # Save the combined graph
     plt.tight_layout()
     plt.savefig(filename)
     plt.show()
 
+    # Generate and save individual graphs
+    for dataset in sorted(datasets):
+        fig, ax = plt.subplots(figsize=(8, 6))
+        for model, model_data in data.items():
+            if dataset in model_data:
+                avg_aucs, std_aucs = model_data[dataset]["avg_auc"], model_data[dataset]["std_auc"]
+                ax.errorbar(proportions, avg_aucs, yerr=std_aucs, fmt='-o', capsize=5, label=model)
+
+        ax.set_xlabel('Percent of anomalies in ADA-NAF training data')
+        ax.set_ylabel('Average AUC')
+        ax.set_title(f'{dataset.capitalize()} dataset')
+        ax.set_xticks(proportions)
+        ax.set_xticklabels([0.0, 12.5, 25.0, 37.5, 50.0])
+        # ax.set_ylim([-0.1, 1.1])
+        ax.legend()
+
+        # Save each individual graph with a unique filename
+        individual_filename = f'{dataset}_graph.png'
+        plt.tight_layout()
+        plt.savefig(individual_filename)
+        plt.close()
+
 
 if __name__ == "__main__":
-    file_path = "/Users/andreyageev/PycharmProjects/NAF/output_num_seeds_3_num_cross_val_3_num_trees_100_count_epoch_50_contaminations_0_20240208_211658.txt"
+    file_path = "/Users/andreyageev/PycharmProjects/NAF/output_num_seeds_3_num_cross_val_3_num_trees_100_count_epoch_50_contaminations_0_20240211_155007.txt"
     parsed_data = parse_file(file_path)
-    plot_and_save_data(parsed_data, filename="check.png")
+    plot_and_save_data(parsed_data, filename="inj.png")

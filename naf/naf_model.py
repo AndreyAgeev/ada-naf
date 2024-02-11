@@ -141,7 +141,7 @@ class NeuralAttentionForest(AttentionForest):
         X_tensor_val = torch.tensor(X_val, dtype=torch.double)
 
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
+        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
 
         if len(background_y.shape) == 1:
             background_y = background_y.unsqueeze(1)
@@ -211,7 +211,7 @@ class NeuralAttentionForest(AttentionForest):
         neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
         X_tensor = torch.tensor(X, dtype=torch.double)
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
+        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
         # size = self.training_y.shape[0]
         # background_y = torch.tensor(self.training_y.toarray(), dtype=torch.double)
         # background_y = torch.reshape(background_y, (size, 2))

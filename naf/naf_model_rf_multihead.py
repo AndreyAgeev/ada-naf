@@ -165,7 +165,7 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
         X_tensor = torch.tensor(X_train, dtype=torch.double)
         X_tensor_val = torch.tensor(X_val, dtype=torch.double)
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
+        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
 
         if len(background_y.shape) == 1:
             background_y = background_y.unsqueeze(1)
@@ -239,7 +239,7 @@ class NeuralMultiheadAttentionRandomForest(AttentionForest):
         neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
         X_tensor = torch.tensor(X, dtype=torch.double)
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y, dtype=torch.double)
+        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
         if len(background_y.shape) == 1:
             background_y = background_y.unsqueeze(1)
         neighbors_hot = torch.tensor(neighbors_hot, dtype=torch.bool)

@@ -64,11 +64,11 @@ class AbstractDataset(ABC):
         labels_a = np.ones(len(Xa))
 
         num_anomalous = len(Xa)
-        total = num_anomalous
+        total = 2 * num_anomalous
         if injection is False:
-            proportions = [1.0, 0.7, 0.5, 0.3]
+            proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
         else:
-            proportions = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+            proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
 
         datasets = []
         np.random.seed(self.seed)
@@ -92,7 +92,7 @@ class AbstractDataset(ABC):
             # Преобразование обратно в numpy массивы
             X_shuffled = np.array(X_shuffled)
             Y_shuffled = np.array(Y_shuffled)
-            print(len(Y_shuffled[Y_shuffled == 1]))
+            # print(len(Y_shuffled[Y_shuffled == 1]))
 
             datasets.append((X_shuffled, Y_shuffled))
 

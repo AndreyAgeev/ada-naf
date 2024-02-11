@@ -30,7 +30,7 @@ def _convert_labels_to_probas(y, encoder=None):
     if y.ndim == 2 and y.shape[1] >= 2:
         return y, encoder
     if encoder is None:
-        encoder = OneHotEncoder()
+        encoder = OneHotEncoder(handle_unknown='ignore')
         y = encoder.fit_transform(y.reshape((-1, 1)))
     else:
         y = encoder.transform(y.reshape((-1, 1)))
