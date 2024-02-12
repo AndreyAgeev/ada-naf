@@ -18,8 +18,12 @@ if __name__ == "__main__":
     # anomaly_detection.start_model_naf_impact_rf("NAF-3-LAYER")
     # anomaly_detection.start_model_naf_impact_rf("NAF-MH-3-HEAD-1-LAYER")
     #
-    anomaly_detection.start_model_naf_injection("NAF-1-LAYER")
-    anomaly_detection.start_model_naf_injection("NAF-3-LAYER")
-    anomaly_detection.start_model_naf_injection("NAF-MH-3-HEAD-1-LAYER")
+    # anomaly_detection.start_model_naf_injection("NAF-1-LAYER")
+    # anomaly_detection.start_model_naf_injection("NAF-3-LAYER")
+    # anomaly_detection.start_model_naf_injection("NAF-MH-3-HEAD-1-LAYER")
+    #
+    anomaly_detection.start_model_naf_eps("NAF-1-LAYER")
+    anomaly_detection.start_model_naf_eps("NAF-3-LAYER")
+    # anomaly_detection.start_model_naf_eps("NAF-MH-3-HEAD-1-LAYER")
 
     anomaly_detection._file_logger.end_logger("END")

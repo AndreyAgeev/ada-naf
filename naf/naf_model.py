@@ -54,6 +54,7 @@ class NAFParams:
     weights_init_type: str = 'default'
     random_state: Optional[int] = None
     regularization_lambda: float = 0.0
+    contamination_eps: float = 0
 
     def __post_init__(self):
         if not isinstance(self.kind, ForestKind):
@@ -71,7 +72,7 @@ class NeuralAttentionForest(AttentionForest):
 
     def _make_nn(self, n_features):
         self._n_features = n_features
-        self.nn = NAFNetwork(n_features, self.params.hidden_size, self.params.n_layers, self.params.random_state)
+        self.nn = NAFNetwork(n_features, self.params.hidden_size, self.params.n_layers, self.params.random_state, self.params.contamination_eps)
 
     def _base_fit(self, X, y) -> 'NeuralAttentionForest':
         forest_cls = FORESTS[ForestType(self.params.kind, self.params.task)]
@@ -141,7 +142,7 @@ class NeuralAttentionForest(AttentionForest):
         X_tensor_val = torch.tensor(X_val, dtype=torch.double)
 
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
+        background_y = torch.tensor(self.training_y, dtype=torch.double)
 
         if len(background_y.shape) == 1:
             background_y = background_y.unsqueeze(1)
@@ -211,7 +212,7 @@ class NeuralAttentionForest(AttentionForest):
         neighbors_hot = self._get_leaf_data_segments(X, exclude_input=False)
         X_tensor = torch.tensor(X, dtype=torch.double)
         background_X = torch.tensor(self.training_xs, dtype=torch.double)
-        background_y = torch.tensor(self.training_y.data, dtype=torch.double)
+        background_y = torch.tensor(self.training_y, dtype=torch.double)
         # size = self.training_y.shape[0]
         # background_y = torch.tensor(self.training_y.toarray(), dtype=torch.double)
         # background_y = torch.reshape(background_y, (size, 2))
