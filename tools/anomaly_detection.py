@@ -59,9 +59,9 @@ class AnomalyDetection:
                                  "contaminations": self._contaminations})
 
         self._dict_models_naf = {
-            "NAF-1-LAYER": NeuralAttentionForest,
-            "NAF-3-LAYER": NeuralAttentionForest,
-            "NAF-MH-3-HEAD-1-LAYER": NeuralMultiheadAttentionRandomForest,
+            "ADA-NAF-1-LAYER": NeuralAttentionForest,
+            "ADA-NAF-3-LAYER": NeuralAttentionForest,
+            "ADA-NAF-MH-3-HEAD-1-LAYER": NeuralMultiheadAttentionRandomForest,
             "AUTOENCODER-1-LAYER": AutoencoderModel
         }
 
@@ -139,7 +139,7 @@ class AnomalyDetection:
                         n_estimators=self._n_trees,
                         min_samples_leaf=1
                     )
-                    if model_type == "NAF-3-LAYER":
+                    if model_type == "ADA-NAF-3-LAYER":
                         num_layers = 3
                     else:
                         num_layers = 1
@@ -214,7 +214,7 @@ class AnomalyDetection:
                             min_samples_leaf=1,
                             # max_depth=1
                         )
-                        if model_type == "NAF-3-LAYER":
+                        if model_type == "ADA-NAF-3-LAYER":
                             num_layers = 3
                         else:
                             num_layers = 1
@@ -285,7 +285,7 @@ class AnomalyDetection:
                         min_samples_leaf=1,
                         max_depth=1,
                     )
-                    if model_type == "NAF-3-LAYER":
+                    if model_type == "ADA-NAF-3-LAYER":
                         num_layers = 3
                     else:
                         num_layers = 1

@@ -7,5 +7,5 @@ if __name__ == "__main__":
                                          num_trees=100,
                                          count_epoch=50,
                                          contaminations=0)
-    anomaly_detection.start_model_naf("NAF-1-LAYER")
+    anomaly_detection.start_model_naf("ADA-NAF-1-LAYER")
     anomaly_detection._file_logger.end_logger("END")
