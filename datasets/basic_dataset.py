@@ -18,10 +18,6 @@ class AbstractDataset(ABC):
 
         self._curr_contamination = None
 
-    # @abstractmethod
-    # def cross_validation_split(self, k: int):
-    #     pass
-
     @abstractmethod
     def load(self):
         """Process function."""
@@ -58,39 +54,6 @@ class AbstractDataset(ABC):
         Xa = self.X_train[self.y_train == 1]
         return Xn, Xa
 
-    # def create_dataset_versions(self, Xn, Xa):
-    #     X1 = np.concatenate((0.7 * Xn, 0.3 * Xa))
-    #     X2 = np.concatenate((0.5 * Xn, 0.5 * Xa))
-    #     X3 = np.concatenate((0.3 * Xn, 0.7 * Xa))
-    #     return X1, X2, X3
-
-    # def create_dataset_versions(self, Xn, Xa):
-    #     # Create label arrays
-    #     labels_n = np.zeros(len(Xn))
-    #     labels_a = np.ones(len(Xa))
-    #
-    #     # Calculate the number of samples from each set for the mix
-    #     num_n_for_X1 = int(0.7 * len(Xn))
-    #     num_a_for_X1 = int(0.3 * len(Xa))
-    #     num_n_for_X2 = int(0.5 * len(Xn))
-    #     num_a_for_X2 = int(0.5 * len(Xa))
-    #     num_n_for_X3 = int(0.3 * len(Xn))
-    #     num_a_for_X3 = int(0.7 * len(Xa))
-    #
-    #     # Create datasets
-    #     X1 = np.concatenate((Xn[:num_n_for_X1], Xa[:num_a_for_X1]))
-    #     X2 = np.concatenate((Xn[:num_n_for_X2], Xa[:num_a_for_X2]))
-    #     X3 = np.concatenate((Xn[:num_n_for_X3], Xa[:num_a_for_X3]))
-    #
-    #     # Create corresponding label arrays
-    #     Y1 = np.concatenate((labels_n[:num_n_for_X1], labels_a[:num_a_for_X1]))
-    #     Y2 = np.concatenate((labels_n[:num_n_for_X2], labels_a[:num_a_for_X2]))
-    #     Y3 = np.concatenate((labels_n[:num_n_for_X3], labels_a[:num_a_for_X3]))
-    #
-    #     return (X1, Y1), (X2, Y2), (X3, Y3)
-
-    import numpy as np
-
     def create_dataset_versions(self, Xn, Xa, injection=False):
         # Create label arrays
         labels_n = np.zeros(len(Xn))
@@ -99,34 +62,28 @@ class AbstractDataset(ABC):
         num_anomalous = len(Xa)
         total = 2 * num_anomalous
         if injection is False:
-            proportions = [1.0, 0.7, 0.5, 0.3]
+            proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
         else:
-            proportions = [0.0, 0.05, 0.1]
+            proportions = [0.0, 0.25, 0.5, 0.75, 1.0]
 
         datasets = []
         np.random.seed(self.seed)
 
         for proportion_a in proportions:
-            # Вычисляем количество нормальных и аномальных сэмплов в соответствии с пропорцией
             num_anomalous_current = int(proportion_a * num_anomalous)
             num_normal = total - num_anomalous_current
 
-            # Убедимся, что не превышаем количество доступных нормальных сэмплов
             num_normal = min(num_normal, len(Xn))
 
-            # Конкатенация данных и меток
             X = np.concatenate((Xn[:num_normal], Xa[:num_anomalous_current]))
             Y = np.concatenate((labels_n[:num_normal], labels_a[:num_anomalous_current]))
 
-            # Перемешиваем данные и метки
             combined = list(zip(X, Y))
             np.random.shuffle(combined)
             X_shuffled, Y_shuffled = zip(*combined)
 
-            # Преобразование обратно в numpy массивы
             X_shuffled = np.array(X_shuffled)
             Y_shuffled = np.array(Y_shuffled)
-            print(len(Y_shuffled[Y_shuffled == 1]))
 
             datasets.append((X_shuffled, Y_shuffled))
 
@@ -138,11 +95,9 @@ class AbstractDataset(ABC):
         return Xn1, Xn2
 
     def random_subset_split(self, X):
-        # Определяем размеры для Xt1, Xt2, и Xt3 (70%, 65%, 60%)
         np.random.seed(self.seed)
         sizes = [0.7, 0.7, 0.7]
 
-        # Создаем подмножества
         Xt1 = np.random.choice(X, size=int(len(X) * sizes[0]), replace=False)
         Xt2 = np.random.choice(X, size=int(len(X) * sizes[1]), replace=False)
         Xt3 = np.random.choice(X, size=int(len(X) * sizes[2]), replace=False)

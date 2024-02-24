@@ -1,5 +1,0 @@
-IF
-shuttle
-mean test f1: 0.0888888888888889
-avg_auc: 0.1764, std_auc: 0.0000, avg_ap: 0.0104, std_ap: 0.0000, avg_time: 0.3
-End logger: END

@@ -1,8 +1,0 @@
-NAF-IF: reqularization lambda = 1.0
-seismic_bumps
-mean test f1: 0.1206896551724138
-avg_auc: 0.6784, std_auc: 0.0000, avg_ap: 0.1209, std_ap: 0.0000, avg_time: 557.5
-shuttle
-mean test f1: 0.1
-avg_auc: 0.9339, std_auc: 0.0000, avg_ap: 0.1237, std_ap: 0.0000, avg_time: 79.6
-End logger: END
