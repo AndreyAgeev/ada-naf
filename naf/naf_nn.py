@@ -65,8 +65,7 @@ class NAFTreeNetwork(Module):
         super().__init__()
         self.second_encoder = make_encoder(n_features, hidden_size, n_layers)
         self.contamination_eps = contamination_eps
-        self.W = torch.rand(100)
-        self.W.requires_grad = False
+        self.W = torch.nn.Parameter(torch.rand(100))
 
     def forward(self, X, first_leaf_xs, first_leaf_y, first_alphas, need_attention_weights: bool = False):
         """
@@ -84,7 +83,8 @@ class NAFTreeNetwork(Module):
             .view(first_leaf_xs.shape[0], first_leaf_xs.shape[1], -1)
         # second_leaf_xs_enc = self.second_encoder(first_leaf_xs)
         second_dots = torch.einsum('nf,ntf->nt', second_X_enc, second_leaf_xs_enc)  # shape: (n_samples, n_trees)
-        second_betas = (1 - self.contamination_eps) * torch.softmax(second_dots, dim=1) + self.contamination_eps * self.W  # shape: (n_samples, n_trees)
+        second_betas = (1 - self.contamination_eps) * torch.softmax(second_dots, dim=1) + self.contamination_eps \
+                       * torch.softmax(self.W, dim=0)  # shape: (n_samples, n_trees)
         second_y = torch.einsum('nty,nt->ny', first_leaf_y, second_betas)
         if need_attention_weights:
             second_xs = torch.einsum('ntf,nt->nf', first_leaf_xs, second_betas)

@@ -18,10 +18,6 @@ class AbstractDataset(ABC):
 
         self._curr_contamination = None
 
-    # @abstractmethod
-    # def cross_validation_split(self, k: int):
-    #     pass
-
     @abstractmethod
     def load(self):
         """Process function."""
@@ -77,22 +73,17 @@ class AbstractDataset(ABC):
             num_anomalous_current = int(proportion_a * num_anomalous)
             num_normal = total - num_anomalous_current
 
-            # Убедимся, что не превышаем количество доступных нормальных сэмплов
             num_normal = min(num_normal, len(Xn))
 
-            # Конкатенация данных и меток
             X = np.concatenate((Xn[:num_normal], Xa[:num_anomalous_current]))
             Y = np.concatenate((labels_n[:num_normal], labels_a[:num_anomalous_current]))
 
-            # Перемешиваем данные и метки
             combined = list(zip(X, Y))
             np.random.shuffle(combined)
             X_shuffled, Y_shuffled = zip(*combined)
 
-            # Преобразование обратно в numpy массивы
             X_shuffled = np.array(X_shuffled)
             Y_shuffled = np.array(Y_shuffled)
-            # print(len(Y_shuffled[Y_shuffled == 1]))
 
             datasets.append((X_shuffled, Y_shuffled))
 
@@ -104,11 +95,9 @@ class AbstractDataset(ABC):
         return Xn1, Xn2
 
     def random_subset_split(self, X):
-        # Определяем размеры для Xt1, Xt2, и Xt3 (70%, 65%, 60%)
         np.random.seed(self.seed)
         sizes = [0.7, 0.7, 0.7]
 
-        # Создаем подмножества
         Xt1 = np.random.choice(X, size=int(len(X) * sizes[0]), replace=False)
         Xt2 = np.random.choice(X, size=int(len(X) * sizes[1]), replace=False)
         Xt3 = np.random.choice(X, size=int(len(X) * sizes[2]), replace=False)

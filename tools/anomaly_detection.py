@@ -1,13 +1,10 @@
-from collections import defaultdict
 import time
 
 import numpy as np
 from sklearn import metrics
 from sklearn.ensemble import IsolationForest
-from sklearn.metrics import mean_squared_error, f1_score
+from sklearn.metrics import f1_score
 
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
 from datasets import *
@@ -34,11 +31,11 @@ class AnomalyDetection:
     def __init__(self, num_seeds: int = 1, num_cross_val: int = 1, num_trees: int = 150, count_epoch: int = 300,
                  contaminations: int = 5):
         self._datasets = [
-            DatasetArrythmia(),  # 8 - 17 features
-            # DatasetCredit(),  # 12 - 30 features
-            DatasetHaberman(),  # 2  - 3 features
-            DatasetIonosphere(),  # 6 - 33 features
-            DatasetPimaDiabetes(),  # 6 - 8 features
+            DatasetArrythmia(),
+            # DatasetCredit(),
+            DatasetHaberman(),
+            DatasetIonosphere(),
+            DatasetPimaDiabetes(),
             # DatasetSeismicBumps(),
             # DatasetShuttle(),
             DatasetAnnhyroid(),
@@ -123,7 +120,6 @@ class AnomalyDetection:
                   f'avg_ap: {avg_ap:.4f}, std_ap: {std_ap:.4f}, ' \
                   f'avg_time: {avg_time:.1f}'
             self._file_logger.info(txt)
-            # self._file_logger.end_logger("")
 
     def start_model_naf(self, model_type: str, regularization_lambda: float = 0.0):
         self._file_logger.info(model_type + ": reqularization lambda = " + str(regularization_lambda))
@@ -225,7 +221,7 @@ class AnomalyDetection:
                         hidden_size = dataset.X_train.shape[1] // 2
                         params = NAFParams(
                             kind=self._tree_type,
-                            task=TaskType.REGRESSION,
+                            task=TaskType.CLASSIFICATION,
                             mode='end_to_end',
                             n_epochs=self._count_epoch,
                             lr=0.01,
@@ -315,8 +311,6 @@ class AnomalyDetection:
                     for idx, subset_dataset in enumerate(datasets):
                         X, Y = subset_dataset
                         model = model_cls(params)
-                        # print(f"Normal data = {len(X[Y==0])} vs Anomaly Data = {len(X[Y==1])}")
-                        # print(f"Normal data X_orig = {len(X_orig[Y_orig==0])} vs Anomaly Data = {len(X_orig[Y_orig==1])}")
 
                         model.fit(X_orig, Y_orig)
                         model.optimize_weights_unlabeled(X)
@@ -330,7 +324,6 @@ class AnomalyDetection:
                         scores = scaler.fit_transform(np.array(mse_values).reshape(-1, 1))
 
                         auc, ap = evaluate(dataset.y_test, scores)
-                        # print(f"auc = {auc}, ap = {ap}")
                         auc_lst[idx].append(auc)
                         ap_lst[idx].append(ap)
             for idx, subset_dataset in enumerate(datasets):

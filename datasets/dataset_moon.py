@@ -51,13 +51,6 @@ class DatasetMoon(AbstractDataset):
         self.y_train = y_train.values
         self.y_test = y_test.values
 
-    # def cross_validation_split(self, k: int):
-    #     X_train, X_test, y_train, y_test = train_test_split(self.data, self.labels, test_size=0.33, random_state=k)
-    #     self.X_train = X_train.values
-    #     self.X_test = X_test.values
-    #     self.y_train = y_train.values
-    #     self.y_test = y_test.values
-
     def plot_dataset(self, data, y, save_path):
         plt.scatter(data[:, 0], data[:, 1], c=y, s=20, edgecolor="k")
         plt.savefig(save_path)

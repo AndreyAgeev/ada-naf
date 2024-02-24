@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # anomaly_detection.start_model_other("IF")
     # anomaly_detection.start_model_other("DIF")
     # anomaly_detection.start_model_naf("AUTOENCODER-1-LAYER")
-    # anomaly_detection.start_model_naf("NAF-1-LAYER")
+    anomaly_detection.start_model_naf("NAF-1-LAYER")
     # anomaly_detection.start_model_naf("NAF-3-LAYER")
     # anomaly_detection.start_model_naf("NAF-MH-3-HEAD-1-LAYER")
     #
