@@ -13,11 +13,11 @@ from deepod.models.dif import DeepIsolationForest
 from deepod.models.dsvdd import DeepSVDD
 from deepod.models.icl import ICL
 
-from naf.autoencoder_model import AutoencoderModel
-from naf.forests import ForestKind, TaskType
-from naf.naf_model import NAFParams
-from naf.naf_model import NeuralAttentionForest
-from naf.naf_model_rf_multihead import NeuralMultiheadAttentionRandomForest
+from ada_naf.autoencoder_model import AutoencoderModel
+from ada_naf.forests import ForestKind, TaskType
+from ada_naf.naf_model import NAFParams
+from ada_naf.naf_model import NeuralAttentionForest
+from ada_naf.naf_model_rf_multihead import NeuralMultiheadAttentionRandomForest
 from logger.file_logger import FileLogger
 
 
@@ -48,7 +48,7 @@ class AnomalyDetection:
         self._num_cross_val = num_cross_val
         self._n_trees = num_trees
         self._count_epoch = count_epoch
-        self._tree_type = ForestKind.RANDOM  # don't change
+        self._tree_type = ForestKind.RANDOM
         self._contaminations = contaminations
         self._seed_variants = [1234 + 7 * i for i in range(self._num_seeds)]
         self._file_logger = FileLogger()
